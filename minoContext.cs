@@ -207,12 +207,12 @@ namespace mino
                 entity.HasOne(d => d.PcNavigation)
                     .WithMany(p => p.PcsPrinters)
                     .HasForeignKey(d => d.Pc)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.SetNull);
 
                 entity.HasOne(d => d.PrinterNavigation)
                     .WithMany(p => p.PcsPrinters)
                     .HasForeignKey(d => d.Printer)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<PcsScaner>(entity =>
@@ -428,7 +428,7 @@ namespace mino
                 entity.HasOne(d => d.MfuScanerModelNavigation)
                     .WithMany(p => p.TechModelsOfPrinters)
                     .HasForeignKey(d => d.MfuScanerModel)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<TechModelsOfScaner>(entity =>
@@ -518,7 +518,7 @@ namespace mino
                 entity.HasOne(d => d.ModelNavigation)
                     .WithMany(p => p.TechPrinters)
                     .HasForeignKey(d => d.Model)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<TechPrinterCartridgeAlliance>(entity =>
@@ -532,6 +532,8 @@ namespace mino
 
                 entity.Property(e => e.CartridgeModel).HasColumnName("cartridge_model");
 
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
                 entity.Property(e => e.PrinterModel).HasColumnName("printer_model");
 
                 entity.HasOne(d => d.CartridgeModelNavigation)
@@ -542,7 +544,7 @@ namespace mino
                 entity.HasOne(d => d.PrinterModelNavigation)
                     .WithMany(p => p.TechPrinterCartridgeAlliances)
                     .HasForeignKey(d => d.PrinterModel)
-                    .OnDelete(DeleteBehavior.Restrict);
+                    .OnDelete(DeleteBehavior.SetNull);
             });
 
             modelBuilder.Entity<TechRamType>(entity =>

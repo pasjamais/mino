@@ -6,7 +6,7 @@ namespace mino
     public partial class TechCartridgesRotation
     {
         public long Id { get; set; }
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
         public long? ModelId { get; set; }
         public long? Place { get; set; }
         public long? Quantity { get; set; }

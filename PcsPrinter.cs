@@ -6,7 +6,7 @@ namespace mino
     public partial class PcsPrinter
     {
         public long Id { get; set; }
-        public byte[] Date { get; set; } = null!;
+        public DateTime Date { get; set; } 
         public long? Pc { get; set; }
         public long? Printer { get; set; }
         public long? Quantity { get; set; }

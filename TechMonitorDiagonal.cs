@@ -11,7 +11,7 @@ namespace mino
         }
 
         public long Id { get; set; }
-        public byte[] Diagonal { get; set; } = null!;
+        public decimal Diagonal { get; set; } 
 
         public virtual ICollection<TechMonitor> TechMonitors { get; set; }
     }

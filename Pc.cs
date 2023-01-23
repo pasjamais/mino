@@ -19,7 +19,7 @@ namespace mino
         public string? Name { get; set; }
         public string? Ip { get; set; }
         public long? CpuModel { get; set; }
-        public byte[]? LastServiceDate { get; set; }
+        public DateTime? LastServiceDate { get; set; }
         public long? RamType { get; set; }
         public long? RamSize { get; set; }
         public long? RamBarsInUse { get; set; }
@@ -30,8 +30,8 @@ namespace mino
         public long? SoftAntivirus { get; set; }
         public long? SoftOffice { get; set; }
         public long? SoftOs { get; set; }
-        public byte[]? IsNotebook { get; set; }
-        public byte[]? LastInfoGetDate { get; set; }
+        public bool? IsNotebook { get; set; }
+        public DateTime? LastInfoGetDate { get; set; }
 
         public virtual TechModelsOfCpu? CpuModelNavigation { get; set; }
         public virtual TechRamType? RamTypeNavigation { get; set; }

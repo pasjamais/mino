@@ -7,7 +7,7 @@ namespace mino
     {
         public long Id { get; set; }
         public long? Manipulation { get; set; }
-        public DateTime? Date { get; set; } 
+        public DateTime Date { get; set; } 
         public string? Comment { get; set; }
         public long? Client { get; set; }
 
