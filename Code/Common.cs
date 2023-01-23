@@ -23,8 +23,8 @@ namespace mino
             public static readonly int Number_of_Query_Del_Alliance                     = 29;
             public static readonly int Number_of_Query_Users_and_PCs                    = 30;
 
+            public static readonly string Del_Confirmation = "В самом деле удалить\n";
 
-        public static readonly string Del_Confirmation = "В самом деле удалить\n";
             public static readonly Dictionary<string, int> mouvement_cartridge_type = new Dictionary<string, int>
                     {
                         {"Поступил", 1 },
@@ -34,6 +34,32 @@ namespace mino
                     {
                         { 1, "в..." },
                         {-1, "из..." }
+                    };
+        public static readonly Dictionary<int, string> Status_Texts = new Dictionary<int, string>
+                    {
+                        {0, "\nВсё нормально" },
+                        {2, "\nБэкап БД..."},
+                        {3, "\nЗагрузка пользователей..."},
+                        {4, "\nЗагрузка журнала..."},
+                        {5, "\nЗагрузка картриджей..."},
+                        {6, "\nЗагрузка ПК..."},
+                        {7, "\nЗагрузка кабинетов..."},
+                        {8, "\nЗагрузка принтеров..."},
+                        {9, "\nЗагрузка отчётов..."},
+                        {10, "\nЗагрузка железа..."},
+                        {11, "\nЗагрузка софта..."},
+                        {12, "\nО программе ..."},
+                        {20, "\nФИО не может быть пустым!"},
+                        {21, "\nСущность создана: "},
+                        {22, "\nПК присвоен"},
+                        {23, "\nПК откреплены"},
+                        {24, "\nСущность удалена"},
+                        {25, "\nСервисные обращения удалены"},
+                        {26, "\nСущность изменена: "},
+                        {27, "\nИмя сущности не может быть пустой"},
+                        {28, "\nТеперь без кабинета: "},
+                        {29, "\nКабинет удалён: "},
+                        {100, "\n"}
                     };
     }
 }

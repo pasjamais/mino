@@ -8,13 +8,17 @@
         mc:Ignorable="d"
         Title="Mino" Height="800" Width="800" MinWidth="800" MinHeight="800" WindowStartupLocation="CenterScreen"
      Closing="DataWindow_Closing">
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250"></ColumnDefinition>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid x:Name="GridMenu" Grid.Row="0" Grid.Column="0" Background="#FF554BCF" Width="249" HorizontalAlignment="Left">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid x:Name="GridMenu" Grid.Row="0" Grid.Column="0" Background="#FF554BCF" Width="250" HorizontalAlignment="Left">
             <ListView x:Name="ListViewMenu"   HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="250">
                 <ListViewItem x:Name="ItemReports" Height="45" Width="200" Selected="ItemReports_Selected" IsEnabled="False" >
                     <StackPanel x:Name="StackPanelReports" Orientation="Horizontal" Width="187" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
@@ -82,20 +86,33 @@
                         <TextBlock Text="Выход" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
                     </StackPanel>
                 </ListViewItem>
-
-
-
-
-
                 <ListView.View>
                     <GridView>
                         <GridViewColumn/>
                     </GridView>
                 </ListView.View>
-
             </ListView>
         </Grid>
-        <Frame x:Name="FrameMain" Grid.Column="1" Content="" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="FrameMain" Grid.Column="1" Grid.RowSpan="2" Content="" NavigationUIVisibility="Hidden"/>
+        <StatusBar x:Name="StatusBar" Grid.Row="1" Grid.Column="0" Background="#FF413A9C" >
+            <TextBox x:Name="TextBoxOut" 
+                         IsEnabled="True"   
+                         AcceptsReturn="True" 
+                         Visibility="Visible"  Width="245" Height="48" 
+                         TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                         Text="{Binding StatusProperty.Message, 
+                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, 
+                                    NotifyOnSourceUpdated=True}" TextChanged="TextBoxOut_TextChanged"                  
+                          AllowDrop="False" Cursor="IBeam" Foreground="White" CaretBrush="#FF413A9C" FontSize="9" FontWeight="Bold" />
+            <!--  <ScrollViewer VerticalAlignment="Stretch">
+                <TextBlock TextWrapping="Wrap" 
+                    Text=    "{Binding StatusProperty.Message, 
+                                    RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, 
+                                    NotifyOnSourceUpdated=True}"
+                           FontSize="8" Foreground="White" Width="225" Height="46"
+                           />
+             </ScrollViewer> -->
+        </StatusBar>
 
     </Grid>
 </Window>

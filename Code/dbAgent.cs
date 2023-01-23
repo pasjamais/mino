@@ -54,6 +54,12 @@ namespace mino
             var cabinets = db.Cabinets.ToList();
             return cabinets;
         }
+
+        public void DeleteCabinet(Cabinet cabinet)
+        {
+            db.Cabinets.Remove(cabinet);
+            db.SaveChanges();
+        }
         #endregion
 
         #region PC

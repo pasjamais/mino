@@ -20,11 +20,11 @@
                     <GradientStop Color="#FF554BCF" Offset="1"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <materialDesign:DialogHost x:Name="DialogHost" 
+            <materialDesign:DialogHost x:Name="DialogHostAdd" 
                     CloseOnClickAway="True" >
                 <materialDesign:DialogHost.DialogContent>
                     <StackPanel Orientation="Vertical">
-                        <TextBlock Text="Введите номер кабинета / название места:" Margin="10,0,10,10" />
+                        <TextBlock Text="Введите номер (название) кабинета:" Margin="10,0,10,10" />
                         <TextBox        Width="400" Height="25"
                                         Margin="10,0,10,10"
                                         HorizontalAlignment="Stretch"
@@ -61,19 +61,99 @@
                     </StackPanel>
                 </materialDesign:DialogHost.DialogContent>
                 <Button x:Name="Button_Dia_Save" 
-                        Background="#FF1113AD" BorderBrush="#FF4042CE"  
+                        BorderBrush="#FF4042CE" Background="#FF9E7335"  
                         Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" 
                         Content="Создать..."
                         Click="Button_Dia_Save_Click" 
                         HorizontalAlignment="Left" VerticalAlignment="Center"
                         Margin="10 10 10 10"/>
             </materialDesign:DialogHost>
+            <materialDesign:DialogHost x:Name="DialogHostChange" 
+                    CloseOnClickAway="True">
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Введите номер (название) кабинета:" Margin="10,0,10,10" />
+                        <TextBox        Width="400" Height="25"
+                                        Margin="10,0,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxChangeName" 
+                                        Text="{Binding Name}"
+                                        AcceptsReturn="False"/>
+                        <TextBlock Text="Примечание:" Margin="10,0,10,10" />
+                        <TextBox        Width="400" Height="25"
+                                        Margin="10,0,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxChangeComment" 
+                                        Text="{Binding Comment}"
+                                        AcceptsReturn="False"/>
+                        <StackPanel
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right" >
+                            <Button                 x:Name="Button_Cha_Record"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True" Click="Button_Cha_Record_Click"
+                                                    Margin="0 8 8 0"
+                                                    Content="Сохранить"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                     />
+                            <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True" x:Name="Button_Cancel_Cha"
+                                                    Margin="0 8 8 0"  Click="Button_Cancel_Cha_Click"
+                                                    Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False"/>
+                        </StackPanel>
 
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <Button x:Name="Button_Dia_Change_Cabinet" BorderBrush="#FF4042CE" Background="#FF169E9B"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" 
+                        Content="Изменить..." Click="Button_Dia_Change_Cabinet_Click"
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Margin="10 10 10 10" IsEnabled="False"/>
+            </materialDesign:DialogHost>
+            <materialDesign:DialogHost x:Name="DialogHostDel" 
+                    CloseOnClickAway="True">
+
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock x:Name="TB_Confirmation_Del" Margin="5,5,5,5" FontSize="11" FontWeight="Bold" Foreground="#FFEDEDED" />
+                        <StackPanel
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right" >
+                            <Button                 x:Name="Button_Del_Record" Click="Button_Del_Record_Click"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Удалить"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                   />
+                            <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True"
+                                                    x:Name="Button_Cancel_Del" Click="Button_Cancel_Del_Click"
+                                                    Margin="0 8 8 0"
+                                                    Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False"/>
+                        </StackPanel>
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <Button x:Name="Button_Dia_Del"  BorderBrush="#FF4042CE" Background="#FFC12364"
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" 
+                        Content="Удалить..." Click="Button_Dia_Del_Click"
+                        
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Margin="10 10 10 10" IsEnabled="False"/>
+            </materialDesign:DialogHost>
         </StackPanel>
-        <DataGrid x:Name="DataGridCabinets" 
+        <DataGrid x:Name="DataGridCabinets"   SelectionMode="Single"
                   IsReadOnly="True"
                   AutoGenerateColumns="false"
-                  Grid.Row="1">
+                  Grid.Row="1" SelectionChanged="DataGridCabinets_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Кабинет"    Binding="{Binding Name,  UpdateSourceTrigger = PropertyChanged}"/>
                 <DataGridTextColumn Header="Доп. инфо"  Binding="{Binding Comment,  UpdateSourceTrigger = PropertyChanged}"/>

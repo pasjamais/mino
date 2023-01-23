@@ -21,12 +21,15 @@ namespace mino
     /// </summary>
     public partial class Page_Journal : Page
     {
-        public Page_Journal()
+        public StatusBarUpdate StatusProperty;
+        public Page_Journal(StatusBarUpdate status)
         {
+            StatusProperty = status;
+            StatusProperty.Message += Common.Status_Texts[0];
             InitializeComponent();
             RowDefinitionTop.Height = new GridLength(Button_Dia_Save.Height + 30);
             RefillDataGridJournal();
-
+            
 
         }
 

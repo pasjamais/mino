@@ -25,6 +25,7 @@ namespace mino
         internal Place place_temporary;
         internal TechPrinterCartridgeAlliance alliance_temporary;
         internal TechModelsOfCartridge cartridge_model_temporary;
+        public StatusBarUpdate StatusProperty;
         public int ReportNumber //управляет отображением, соответствует номеру запроса
         {
             get 
@@ -51,9 +52,10 @@ namespace mino
                 }
             }
         }
-
-        public Page_Cartridges()
+        public Page_Cartridges(StatusBarUpdate status)
         {
+            StatusProperty = status;
+            StatusProperty.Message += Common.Status_Texts[0];
             InitializeComponent();
             RefillGridCartridges(Common.Number_of_Query_Cartridges_Rotation);
             CBselectPrinterModel.ItemsSource = MainWindow.db_agent.Get_Printer_Models();
