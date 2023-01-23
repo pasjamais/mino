@@ -3,12 +3,355 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:mino"
+      xmlns:local="clr-namespace:mino" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page_Printers">
 
-    <Grid Background="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}">
-        
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+
+            <RowDefinition x:Name="RowDefinitionTop"  Height="110"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,0,0,0">
+
+            <StackPanel Orientation="Vertical" Margin="2,0,2,0">
+                <StackPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF554BCF" Offset="1"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <Button x:Name="ButtonShowMouvement" Content="Движение принтеров" 
+                        HorizontalAlignment="Stretch" Margin="5,5,5,0" VerticalAlignment="Center" 
+                        Click="ButtonShowMouvement_Click" 
+                        Background="#FF1113AD" BorderBrush="#FF4042CE"           />
+                <materialDesign:DialogHost CloseOnClickAway="True"
+                    VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,0,2,2">
+                    <materialDesign:DialogHost.DialogContent>
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Выберите модель картриджа:" Margin="10,10,10,10" />
+                                <ComboBox x:Name="ComboBoxCartridgeModel" Width="200" Margin="10,10,10,10" 
+                                      SelectedValuePath="Id"/>
+                                <TextBlock Text="Введите количество:" Margin="10,10,10,10" />
+                                <TextBox
+                                        Width="50"
+                                        Margin="10,10,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxQuantity" 
+                                        Text="1"
+                                        AcceptsReturn="False"
+                                       />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Выберите тип движения:" Margin="10,10,10,10" />
+                                <ComboBox x:Name="ComboBoxMouvementType" Width="150" Margin="10,10,10,10" 
+                                              SelectedValuePath="Value" />
+                                <TextBlock x:Name="TB_Place" Text="Место:" Margin="10,10,10,10" />
+                                <ComboBox x:Name="ComboBoxCartridgePlace" Width="150" Margin="10,10,10,10" 
+                                              SelectedValuePath="Id"/>
+
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Комментарий:" Margin="10,10,10,10" />
+                                <TextBox
+                                        Width="450"
+                                        Margin="10,10,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxComment" 
+                                        Text="{Binding Comment}"
+                                        AcceptsReturn="False"/>
+                            </StackPanel>
+                            <StackPanel
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right" >
+                                <Button                 x:Name="Button_Save_Record"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Сохранить запись"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                    />
+                                <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False">
+
+                                </Button>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </materialDesign:DialogHost.DialogContent>
+
+                    <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" 
+                            Content="Переместить принтер..."
+                        Name="Button_Dia_Add_Mouvement" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                       Margin="5,2,5,0" 
+                        BorderBrush="#FF4042CE" Background="#FF9E7335"/>
+                </materialDesign:DialogHost>
+            </StackPanel>
+            <StackPanel Orientation="Vertical" Margin="2,0,2,0">
+                <StackPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF554BCF" Offset="1"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <Button x:Name="ButtonShowModels" Content="Модели" 
+                        HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Center"
+                       Background="#FF1113AD" BorderBrush="#FF4042CE" FontSize="10"
+                       Click="ButtonShowModels_Click" />
+                <!--  Создать - Изменить - Удалить  -->
+                <StackPanel Orientation="Horizontal">
+
+
+                    <materialDesign:DialogHost  
+                    CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
+                        <materialDesign:DialogHost.DialogContent>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="TB_Confirmation_Add_Place" Margin="10,10,10,10" Text="Наименование места хранения:" />
+                                <TextBox
+                                        Width="200"  HorizontalAlignment="Stretch"
+                                        Margin="10,10,10,10" 
+                                        x:Name="TextBoxAddPlaceName" 
+                                        AcceptsReturn="False"/>
+                                <TextBlock Text="Комментарий:" Margin="10,10,10,10" />
+                                <TextBox
+                                        Width="200"
+                                        Margin="10,10,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxAddPlaceComment" 
+                                        AcceptsReturn="False"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button             x:Name="Button_Add_Place"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Создать"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                  
+                                                        />
+                                    <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False">
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:DialogHost.DialogContent >
+                        <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Созд."
+                        Name="Button_Dia_Add_Model" HorizontalAlignment="Center" VerticalAlignment="Top"
+                                IsEnabled="False" 
+                        BorderBrush="#FF4042CE" Background="#FF9E7335" Cursor="Hand" FontSize="8"
+                                />
+                    </materialDesign:DialogHost>
+                    <materialDesign:DialogHost  
+                    CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
+                        <materialDesign:DialogHost.DialogContent>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="TB_Confirmation_Cha_Place" Margin="10,10,10,10" Text="Наименование места хранения:" />
+                                <TextBox
+                                        Width="200"  HorizontalAlignment="Stretch"
+                                        Margin="10,10,10,10" 
+                                        x:Name="TextBoxChaPlaceName" 
+                                        AcceptsReturn="False"/>
+                                <TextBlock Text="Комментарий:" Margin="10,10,10,10" />
+                                <TextBox
+                                        Width="200"
+                                        Margin="10,10,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxChaPlaceComment" 
+                                        AcceptsReturn="False"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button         x:Name="Button_Cha_Place"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True"
+                                                    Margin="0 8 8 0" 
+                                                    Content="Изменить"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                     />
+                                    <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True"
+                                                    Margin="0 8 8 0" 
+                                                    Content="Отмена" x:Name="Button_Cancel_Cha_Place"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False">
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:DialogHost.DialogContent >
+                        <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Изм."
+                        Name="Button_Dia_Cha_Model" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                          IsEnabled="False" 
+                        BorderBrush="#FF4042CE" Background="#FF169E9B" FontSize="8"/>
+                    </materialDesign:DialogHost>
+                    <materialDesign:DialogHost  
+                    CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
+                        <materialDesign:DialogHost.DialogContent>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="TB_Confirmation_Del_Model" Margin="5,5,5,5" FontSize="11" FontWeight="Bold" Foreground="#FFEDEDED" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Button             x:Name="Button_Del_Model"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True" Click="Button_Del_Model_Click"
+                                                    Margin="0 8 8 0"
+                                                    Content="Удалить"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                     />
+                                    <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True"
+                                                      Margin="0 8 8 0"                  Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False">
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:DialogHost.DialogContent >
+                        <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Уд."
+                        Name="Button_Dia_Del_Model" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                           IsEnabled="False" Click="Button_Dia_Del_Model_Click"
+                        BorderBrush="#FF4042CE" Background="#FFC12364" FontSize="8"/>
+                    </materialDesign:DialogHost>
+                </StackPanel>
+
+            </StackPanel>
+
+
+            <StackPanel Orientation="Vertical" Margin="2,0,2,0">
+                <StackPanel.Background>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="Black"/>
+                        <GradientStop Color="#FF554BCF" Offset="1"/>
+                    </LinearGradientBrush>
+                </StackPanel.Background>
+                <Button x:Name="ButtonShowCartridgeModels" Content="Парк принтеров" 
+                        Click="ButtonShowCartridgeModels_Click"
+                        HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Center" 
+                       Background="#FF1113AD" BorderBrush="#FF4042CE" FontSize="10"/>
+                <!--  StackPanel Создать - Изменить - Удалить  -->
+                <StackPanel Orientation="Horizontal">
+
+
+                    <materialDesign:DialogHost  
+                    CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
+                        <materialDesign:DialogHost.DialogContent>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock Margin="10,10,10,10" Text="Название картриджа:" />
+                                <TextBox
+                                        Width="200"  HorizontalAlignment="Stretch"
+                                        Margin="10,10,10,10" 
+                                        x:Name="TextBoxAddCarModelName" 
+                                        AcceptsReturn="False"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button         x:Name="Button_Add_CarModel"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Создать" 
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                        />
+                                    <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True" 
+                                                    Margin="0 8 8 0"
+                                                    Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False">
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:DialogHost.DialogContent >
+                        <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Созд."
+                        Name="Button_Dia_Add_Printer" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                             
+                                IsEnabled="False" 
+                        BorderBrush="#FF4042CE" Background="#FF9E7335" Cursor="Hand" FontSize="8"/>
+                    </materialDesign:DialogHost>
+                    <materialDesign:DialogHost  
+                    CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
+                        <materialDesign:DialogHost.DialogContent>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="TB_Confirmation_Cha_CarModel" Margin="10,10,10,10" Text="Наименование места хранения:" />
+                                <TextBox
+                                        Width="200"  HorizontalAlignment="Stretch"
+                                        Margin="10,10,10,10" 
+                                        x:Name="TextBoxChaCarModelName" 
+                                        AcceptsReturn="False"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <Button         x:Name="Button_Cha_CarModel"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True" 
+                                                    Margin="0 8 8 0" 
+                                                    Content="Изменить"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                     />
+                                    <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True" x:Name="Button_Cancel_Cha_CarModel"
+                                                    Margin="0 8 8 0"
+                                                    Content="Отмена" 
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False">
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:DialogHost.DialogContent >
+                        <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Изм."
+                        Name="Button_Dia_Cha_Printer" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                          IsEnabled="False" 
+                        BorderBrush="#FF4042CE" Background="#FF169E9B" FontSize="8"/>
+                    </materialDesign:DialogHost>
+                    <materialDesign:DialogHost  
+                    CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
+                        <materialDesign:DialogHost.DialogContent>
+                            <StackPanel Orientation="Vertical">
+                                <TextBlock x:Name="TB_Confirmation_Del_CarModel" Margin="5,5,5,5" FontSize="11" FontWeight="Bold" Foreground="#FFEDEDED" />
+                                <StackPanel Orientation="Horizontal">
+                                    <Button             x:Name="Button_Del_CarModel"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Удалить"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                     />
+                                    <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True"
+                                                      Margin="0 8 8 0"                  Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False">
+                                    </Button>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:DialogHost.DialogContent >
+                        <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Уд."
+                        Name="Button_Dia_Del_Printer" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                         IsEnabled="False"
+                        BorderBrush="#FF4042CE" Background="#FFC12364" FontSize="8"/>
+                    </materialDesign:DialogHost>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <DataGrid x:Name="DataGridReport" Grid.Row="1" IsReadOnly="True"  SelectionMode="Single"
+                 SelectionChanged="DataGridReport_SelectionChanged"
+                  AutoGeneratingColumn="OnAutoGeneratingColumn" 
+                  d:ItemsSource="{d:SampleData ItemCount=5}"/>
     </Grid>
 </Page>

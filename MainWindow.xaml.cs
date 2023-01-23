@@ -22,18 +22,21 @@ namespace mino
     {
         public static dbAgent db_agent = new dbAgent();
         public StatusBarUpdate StatusProperty { get; set; } = new StatusBarUpdate();
-
         public MainWindow()
         {
             InitializeComponent();
-            StatusProperty.Message += Common.Status_Texts[2];
-            dbAgent.Backup_DB();
-            StatusProperty.Message += Common.Status_Texts[0];
+            dbAgent.Backup_DB(StatusProperty, DisableButtons);
+            
+        }
+        public void DisableButtons()
+        {
+            ItemReports.IsEnabled = ItemUsers.IsEnabled = ItemJournal.IsEnabled =
+            ItemPCs.IsEnabled = ItemPrinters.IsEnabled = ItemCartridges.IsEnabled = 
+            ItemHardware.IsEnabled = ItemSoftware.IsEnabled = ItemCabinets.IsEnabled = false;
         }
 
-       
 
-        void DataWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    void DataWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             db_agent.Close();
         }
@@ -43,20 +46,7 @@ namespace mino
         }
 
 
-        private void PlayCommand_CanExecute(object sender, CanExecuteRoutedEventArgs e)
-        {
-            e.CanExecute = true;
-        }
-
-        public void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            StatusProperty.Message = "Play";
-        }
-
-        public void StopCommand_Executed(object sender, ExecutedRoutedEventArgs e)
-        {
-            StatusProperty.Message = "Stop";
-        }
+       
 
         #region Навигация
         private void ItemUsers_Selected(object sender, RoutedEventArgs e)
@@ -81,7 +71,7 @@ namespace mino
         private void ItemPrinters_Selected(object sender, RoutedEventArgs e)
         {
             StatusProperty.Message += Common.Status_Texts[8];
-            FrameMain.Navigate(new Page_Printers());
+            FrameMain.Navigate(new Page_Printers(StatusProperty));
         }
 
         private void ItemHardware_Selected(object sender, RoutedEventArgs e)

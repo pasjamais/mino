@@ -12,6 +12,8 @@ namespace mino
             
             // константы с номерами нужных запросов, хранящихся в БД
             public static readonly int Number_of_Query_Journal                          = 1;
+            public static readonly int Number_of_Query_Printers                         = 7;
+            public static readonly int Number_of_Query_Where_Are_Printers_Now           = 10;
             public static readonly int Number_of_Query_Cartridges_Assortiment           = 14;
             public static readonly int Number_of_Query_Cartridges_for_Printer_Model     = 19;
             public static readonly int Number_of_Query_Cartridges_Rotation              = 20;
@@ -22,8 +24,9 @@ namespace mino
             public static readonly int Number_of_Query_Change_Alliance                  = 28;
             public static readonly int Number_of_Query_Del_Alliance                     = 29;
             public static readonly int Number_of_Query_Users_and_PCs                    = 30;
+            public static readonly int Number_of_Query_List_of_Printer_Models           = 31;  
 
-            public static readonly string Del_Confirmation = "В самом деле удалить\n";
+        public static readonly string Del_Confirmation = "В самом деле удалить\n";
 
             public static readonly Dictionary<string, int> mouvement_cartridge_type = new Dictionary<string, int>
                     {
@@ -38,6 +41,7 @@ namespace mino
         public static readonly Dictionary<int, string> Status_Texts = new Dictionary<int, string>
                     {
                         {0, "\nВсё нормально" },
+                        {1, "\nФайл БД не обнаружен" },
                         {2, "\nБэкап БД..."},
                         {3, "\nЗагрузка пользователей..."},
                         {4, "\nЗагрузка журнала..."},
@@ -59,6 +63,7 @@ namespace mino
                         {27, "\nИмя сущности не может быть пустой"},
                         {28, "\nТеперь без кабинета: "},
                         {29, "\nКабинет удалён: "},
+                        {30, "\nСписок — "},
                         {100, "\n"}
                     };
     }

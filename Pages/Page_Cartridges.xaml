@@ -5,13 +5,13 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:mino" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="1300"
+      d:DesignHeight="450" d:DesignWidth="890"
       Title="Page_Cartridges">
 
     <Grid Background="Black">
         <Grid.RowDefinitions>
 
-            <RowDefinition x:Name="RowDefinitionTop"  Height="77"/>
+            <RowDefinition x:Name="RowDefinitionTop"  Height="110"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,0,0,0">
@@ -43,7 +43,7 @@
                                         x:Name="TextBoxQuantity" 
                                         Text="1"
                                         AcceptsReturn="False"
-                                        PreviewTextInput="TextBoxQuantity_PreviewTextInput"/>
+                                        />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Выберите тип движения:" Margin="10,10,10,10" />
@@ -94,22 +94,9 @@
                         Click="Button_Dia_Save_Click" Margin="5,2,5,0" 
                         BorderBrush="#FF4042CE" Background="#FF9E7335"/>
                 </materialDesign:DialogHost>
-
-
-
-
-            </StackPanel>
-            <StackPanel Orientation="Vertical" Margin="2,0,2,0">
-                <StackPanel.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="Black"/>
-                        <GradientStop Color="#FF554BCF" Offset="1"/>
-                    </LinearGradientBrush>
-                </StackPanel.Background>
                 <Button x:Name="ButtonShowCartridgeAssortiment" Content="Ассортимент" 
-                        HorizontalAlignment="Stretch" Margin="5,5,5,0" VerticalAlignment="Center" Click="ButtonShowCartridgeStatus_Click" Background="#FF1113AD" BorderBrush="#FF4042CE" 
-                        />
-
+                        HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Center" 
+                        Click="ButtonShowCartridgeStatus_Click" Background="#FF1113AD" BorderBrush="#FF4042CE" />
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="2,0,2,0">
                 <StackPanel.Background>
@@ -121,7 +108,13 @@
                 <TextBlock Text="Подбор картриджа по модели принтера:" Margin="5,5,5,0" FontSize="11" FontWeight="Bold" Foreground="#FFEDEDED" />
                 <ComboBox x:Name="CBselectPrinterModel" Margin="5,0,5,0" 
                                       SelectedValuePath="Id"
-                          SelectionChanged="CBselectPrinterModel_SelectionChanged" BorderThickness="2,2,2,2" FontWeight="Bold" Foreground="White"/>
+                          SelectionChanged="CBselectPrinterModel_SelectionChanged" BorderThickness="2,2,2,2" 
+                          FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="Подбор картриджа по пользователю:" Margin="5,5,5,0" FontSize="11" FontWeight="Bold" Foreground="#FFEDEDED" />
+                <ComboBox x:Name="CBselectUser" Margin="5,0,5,0" 
+                                      SelectedValuePath="Id"
+                          SelectionChanged="CBselectUser_SelectionChanged" 
+                          BorderThickness="2,2,2,2" FontWeight="Bold" Foreground="White"/>
 
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="2,0,2,0">
@@ -131,10 +124,7 @@
                         <GradientStop Color="#FF554BCF" Offset="1"/>
                     </LinearGradientBrush>
                 </StackPanel.Background>
-                <TextBlock Text="Подбор картриджа по пользователю:" Margin="5,5,5,0" FontSize="11" FontWeight="Bold" Foreground="#FFEDEDED" />
-                <ComboBox x:Name="CBselectUser" Margin="5,0,5,0" 
-                                      SelectedValuePath="Id"
-                          SelectionChanged="CBselectUser_SelectionChanged" BorderThickness="2,2,2,2" FontWeight="Bold" Foreground="White"/>
+
 
             </StackPanel>
             <StackPanel Orientation="Vertical" Margin="2,0,2,0">
@@ -145,10 +135,10 @@
                     </LinearGradientBrush>
                 </StackPanel.Background>
                 <Button x:Name="ButtonShowPlaces" Content="Места" 
-                        HorizontalAlignment="Stretch" Margin="5,5,5,0" VerticalAlignment="Center" Click="ButtonShowPlaces_Click" Background="#FF1113AD" BorderBrush="#FF4042CE" />
+                        HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Center" Click="ButtonShowPlaces_Click" Background="#FF1113AD" BorderBrush="#FF4042CE" FontSize="10" />
                 <!--  Создать - Изменить - Удалить  -->
                 <StackPanel Orientation="Horizontal">
-                   
+
 
                     <materialDesign:DialogHost  
                     CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
@@ -191,7 +181,8 @@
                         <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Созд."
                         Name="Button_Dia_Add_Place" HorizontalAlignment="Center" VerticalAlignment="Top"
                                 IsEnabled="False" Click="Button_Dia_Add_Place_Click"
-                        BorderBrush="#FF4042CE" Background="#FF9E7335" Cursor="Hand"/>
+                        BorderBrush="#FF4042CE" Background="#FF9E7335" Cursor="Hand" FontSize="8"
+                                />
                     </materialDesign:DialogHost>
                     <materialDesign:DialogHost  
                     CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
@@ -233,7 +224,7 @@
                         <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Изм."
                         Name="Button_Dia_Cha_Place" HorizontalAlignment="Center" VerticalAlignment="Top" 
                           IsEnabled="False" Click="Button_Dia_Cha_Place_Click"
-                        BorderBrush="#FF4042CE" Background="#FF169E9B"/>
+                        BorderBrush="#FF4042CE" Background="#FF169E9B" FontSize="8"/>
                     </materialDesign:DialogHost>
                     <materialDesign:DialogHost  
                     CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
@@ -262,13 +253,13 @@
                         <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Уд."
                         Name="Button_Dia_Del_Place" HorizontalAlignment="Center" VerticalAlignment="Top" 
                           Click="Button_Dia_Del_Place_Click" IsEnabled="False"
-                        BorderBrush="#FF4042CE" Background="#FFC12364"/>
+                        BorderBrush="#FF4042CE" Background="#FFC12364" FontSize="8"/>
                     </materialDesign:DialogHost>
                 </StackPanel>
 
             </StackPanel>
-            
-            
+
+
             <StackPanel Orientation="Vertical" Margin="2,0,2,0">
                 <StackPanel.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -277,7 +268,7 @@
                     </LinearGradientBrush>
                 </StackPanel.Background>
                 <Button x:Name="ButtonShowCartridgeModels" Content="Модели картриджей" 
-                        HorizontalAlignment="Stretch" Margin="5,5,5,0" VerticalAlignment="Center" Click="ButtonShowCartridgeModels_Click" Background="#FF1113AD" BorderBrush="#FF4042CE"/>
+                        HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Center" Click="ButtonShowCartridgeModels_Click" Background="#FF1113AD" BorderBrush="#FF4042CE" FontSize="10"/>
                 <!--  StackPanel Создать - Изменить - Удалить  -->
                 <StackPanel Orientation="Horizontal">
 
@@ -315,7 +306,7 @@
                         <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Созд."
                         Name="Button_Dia_Add_CarModel" HorizontalAlignment="Center" VerticalAlignment="Top" Click="Button_Dia_Add_CarModel_Click"
                                 IsEnabled="False" 
-                        BorderBrush="#FF4042CE" Background="#FF9E7335" Cursor="Hand"/>
+                        BorderBrush="#FF4042CE" Background="#FF9E7335" Cursor="Hand" FontSize="8"/>
                     </materialDesign:DialogHost>
                     <materialDesign:DialogHost  
                     CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
@@ -350,7 +341,7 @@
                         <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Изм."
                         Name="Button_Dia_Cha_CarModel" Click="Button_Dia_Cha_CarModel_Click" HorizontalAlignment="Center" VerticalAlignment="Top" 
                           IsEnabled="False" 
-                        BorderBrush="#FF4042CE" Background="#FF169E9B"/>
+                        BorderBrush="#FF4042CE" Background="#FF169E9B" FontSize="8"/>
                     </materialDesign:DialogHost>
                     <materialDesign:DialogHost  
                     CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
@@ -379,7 +370,7 @@
                         <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Уд."
                         Name="Button_Dia_Del_CarModel" HorizontalAlignment="Center" VerticalAlignment="Top" 
                           Click="Button_Dia_Del_CarModel_Click" IsEnabled="False"
-                        BorderBrush="#FF4042CE" Background="#FFC12364"/>
+                        BorderBrush="#FF4042CE" Background="#FFC12364" FontSize="8"/>
                     </materialDesign:DialogHost>
                 </StackPanel>
             </StackPanel>
@@ -391,7 +382,7 @@
                     </LinearGradientBrush>
                 </StackPanel.Background>
                 <Button x:Name="ButtonShowAlliances" Content="Альянсы" 
-                        HorizontalAlignment="Stretch" Margin="5,5,5,0" VerticalAlignment="Center" Click="ButtonShowAlliances_Click" Background="#FF1113AD" BorderBrush="#FF4042CE"/>
+                        HorizontalAlignment="Stretch" Margin="2,2,2,2" VerticalAlignment="Center" Click="ButtonShowAlliances_Click" Background="#FF1113AD" BorderBrush="#FF4042CE" FontSize="10"/>
                 <StackPanel Orientation="Horizontal">
 
 
@@ -405,7 +396,7 @@
                                 <TextBlock Text="Выберите модель картриджа:" Margin="10,10,10,10" />
                                 <ComboBox x:Name="ComboBoxAddAllianceCartridgeModel" Width="200" Margin="10,10,10,10" 
                                       SelectedValuePath="Id"/>
-                                
+
                                 <StackPanel Orientation="Horizontal">
                                     <Button         x:Name="Button_Add_Alliance"
                                                     Style="{StaticResource MaterialDesignFlatButton}"
@@ -430,7 +421,7 @@
                         Name="Button_Dia_Add_Alliance" HorizontalAlignment="Center" VerticalAlignment="Top" 
                                 Click="Button_Dia_Add_Alliance_Click"
                                 IsEnabled="False" 
-                        BorderBrush="#FF4042CE" Background="#FF9E7335" Cursor="Hand"/>
+                        BorderBrush="#FF4042CE" Background="#FF9E7335" Cursor="Hand" FontSize="8" FontWeight="Normal"/>
                     </materialDesign:DialogHost>
                     <materialDesign:DialogHost  
                     CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
@@ -465,7 +456,7 @@
                         <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Изм."
                         Name="Button_Dia_Cha_Alliance" Click="Button_Dia_Cha_Alliance_Click" HorizontalAlignment="Center" VerticalAlignment="Top" 
                           IsEnabled="False" 
-                        BorderBrush="#FF4042CE" Background="#FF169E9B"/>
+                        BorderBrush="#FF4042CE" Background="#FF169E9B" FontSize="8"/>
                     </materialDesign:DialogHost>
                     <materialDesign:DialogHost  
                     CloseOnClickAway="True" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="2,2,2,2">
@@ -494,13 +485,15 @@
                         <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Уд."
                         Name="Button_Dia_Del_Alliance" HorizontalAlignment="Center" VerticalAlignment="Top" 
                           Click="Button_Dia_Del_Alliance_Click"  IsEnabled="False"
-                        BorderBrush="#FF4042CE" Background="#FFC12364"/>
+                        BorderBrush="#FF4042CE" Background="#FFC12364" FontSize="8"/>
                     </materialDesign:DialogHost>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
-        <DataGrid x:Name="GridCartridges" Grid.Row="1" IsReadOnly="True"  SelectionMode="Single" SelectionChanged="GridCartridges_SelectionChanged"
-                  d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        <DataGrid x:Name="GridCartridges" Grid.Row="1" IsReadOnly="True"  SelectionMode="Single" 
+                  SelectionChanged="GridCartridges_SelectionChanged"
+                  d:ItemsSource="{d:SampleData ItemCount=5}"
+                   AutoGeneratingColumn="OnAutoGeneratingColumn"/>
 
     </Grid>
 </Page>

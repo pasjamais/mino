@@ -13,9 +13,12 @@ namespace mino
         public static readonly String DB_Path_Debut = "Data Source=";
         public static readonly String DB_FileName = "mino.db";
         public static readonly String BackupDirName = "Backup";
-        public static readonly String BackupFileName = "BackupDB";
-  
+        public static readonly String BackupFileName = "Backup";
+        public static readonly String BackupFileExtention = ".db";
+
         minoContext db;
+
+        public delegate void No_Buttons_No_BD();
         public dbAgent()
         {
             db = new minoContext();
@@ -31,13 +34,21 @@ namespace mino
             db.SaveChanges();
         }
 
-        public static void Backup_DB()
+        public static void Backup_DB(StatusBarUpdate StatusProperty, No_Buttons_No_BD no_buttons)
         {
-            String newfilename = (BackupFileName + " " + DateTime.Now.ToString()).Replace(':', '-');
+            String newfilename = (BackupFileName + " " + DB_FileName +  " " + DateTime.Now.ToString()).Replace(':', '-') + BackupFileExtention;
             if (File.Exists(DB_FileName))
             {
                 if (!Directory.Exists(BackupDirName)) Directory.CreateDirectory(BackupDirName);
+                StatusProperty.Message += Common.Status_Texts[2];
                 File.Copy(DB_FileName, BackupDirName + "\\" + newfilename);
+                StatusProperty.Message += Common.Status_Texts[0];
+
+            }
+            else
+            {
+                StatusProperty.Message += Common.Status_Texts[1];
+                no_buttons();
             }
         }
         #endregion
@@ -144,6 +155,15 @@ namespace mino
                               select q).Take(1).First().Text;
             return query_text;
         }
+
+        public string GetQueryName(int number)
+        {
+            // возвращает имя запроса из БД
+            var query_name = (from q in Get_Queries()
+                              where q.Id == number
+                              select q).Take(1).First().Name;
+            return query_name;
+        }
         public BindingList<Query> Get_Queries_BindingList()
         {
             return db.Queries.Local.ToBindingList();
@@ -173,6 +193,23 @@ namespace mino
             return techModelsOfPrinter;
         }
 
+        public TechModelsOfPrinter GetModelOfPrinter(long id)
+        {
+            return db.TechModelsOfPrinters.Find(id);
+
+        }
+
+        public void Add_Printer_Model(TechModelsOfPrinter techModelsOfPrinters)
+        {
+            db.TechModelsOfPrinters.Add(techModelsOfPrinters);
+            db.SaveChanges();
+        }
+        public void Delete_Printer_Model(TechModelsOfPrinter techModelsOfPrinters)
+        {
+
+            db.TechModelsOfPrinters.Remove(techModelsOfPrinters);
+            db.SaveChanges();
+        }
 
         #endregion
 
