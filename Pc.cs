@@ -9,6 +9,8 @@ namespace mino
         {
             PcsPrinters = new HashSet<PcsPrinter>();
             PcsScaners = new HashSet<PcsScaner>();
+            TechMonitors = new HashSet<TechMonitor>();
+            TechScaners = new HashSet<TechScaner>();
         }
 
         public long Id { get; set; }
@@ -22,22 +24,17 @@ namespace mino
         public long? RamSize { get; set; }
         public long? RamBarsInUse { get; set; }
         public long? RamBarsTotal { get; set; }
-        public long? Monitor { get; set; }
         public string? SpecialSoft { get; set; }
-        public long? Printer { get; set; }
-        public long? Scaner { get; set; }
         public string? InventoryN { get; set; }
         public long? Ups { get; set; }
         public long? SoftAntivirus { get; set; }
         public long? SoftOffice { get; set; }
         public long? SoftOs { get; set; }
         public byte[]? IsNotebook { get; set; }
+        public byte[]? LastInfoGetDate { get; set; }
 
         public virtual TechModelsOfCpu? CpuModelNavigation { get; set; }
-        public virtual TechMonitor? MonitorNavigation { get; set; }
-        public virtual TechPrinter? PrinterNavigation { get; set; }
         public virtual TechRamType? RamTypeNavigation { get; set; }
-        public virtual TechScaner? ScanerNavigation { get; set; }
         public virtual TechSoftAntivirus? SoftAntivirusNavigation { get; set; }
         public virtual TechSoftOffice? SoftOfficeNavigation { get; set; }
         public virtual TechSoftO? SoftOsNavigation { get; set; }
@@ -45,5 +42,7 @@ namespace mino
         public virtual User? UserNavigation { get; set; }
         public virtual ICollection<PcsPrinter> PcsPrinters { get; set; }
         public virtual ICollection<PcsScaner> PcsScaners { get; set; }
+        public virtual ICollection<TechMonitor> TechMonitors { get; set; }
+        public virtual ICollection<TechScaner> TechScaners { get; set; }
     }
 }

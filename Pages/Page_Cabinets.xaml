@@ -3,12 +3,82 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:mino"
+      xmlns:local="clr-namespace:mino" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page_Cabinets">
 
-    <Grid Background="{DynamicResource SecondaryHueMidBrush}">
-        <DataGrid x:Name="DataGridCabinets" AutoGenerateColumns="true"  />
+    <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="RowDefinitionTop" Height="0.1*"  />
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF554BCF" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <materialDesign:DialogHost x:Name="DialogHost" 
+                    CloseOnClickAway="True" >
+                <materialDesign:DialogHost.DialogContent>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Введите номер кабинета / название места:" Margin="10,0,10,10" />
+                        <TextBox        Width="400" Height="25"
+                                        Margin="10,0,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxSaveName" 
+                                        Text="{Binding Name}"
+                                        AcceptsReturn="False"/>
+                        <TextBlock Text="Примечание:" Margin="10,0,10,10" />
+                        <TextBox        Width="400" Height="25"
+                                        Margin="10,0,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxSaveComment" 
+                                        Text="{Binding Comment}"
+                                        AcceptsReturn="False"/>
+                        <StackPanel
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right" >
+                            <Button                 x:Name="Button_Save_Record"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Сохранить"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                    Click="Button_Save_Record_Click" />
+                            <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </materialDesign:DialogHost.DialogContent>
+                <Button x:Name="Button_Dia_Save" 
+                        Background="#FF1113AD" BorderBrush="#FF4042CE"  
+                        Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" 
+                        Content="Создать..."
+                        Click="Button_Dia_Save_Click" 
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Margin="10 10 10 10"/>
+            </materialDesign:DialogHost>
+
+        </StackPanel>
+        <DataGrid x:Name="DataGridCabinets" 
+                  IsReadOnly="True"
+                  AutoGenerateColumns="false"
+                  Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Кабинет"    Binding="{Binding Name,  UpdateSourceTrigger = PropertyChanged}"/>
+                <DataGridTextColumn Header="Доп. инфо"  Binding="{Binding Comment,  UpdateSourceTrigger = PropertyChanged}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
     </Grid>
 </Page>

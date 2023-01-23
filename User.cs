@@ -13,9 +13,9 @@ namespace mino
         }
 
         public long Id { get; set; }
-        public string? Name { get; set; }
-        public long? Cabinet { get; set; }
+        public string Name { get; set; } = null!;
         public string? Comment { get; set; }
+        public long? Cabinet { get; set; }
         public long? Credentials { get; set; }
 
         public virtual Cabinet? CabinetNavigation { get; set; }

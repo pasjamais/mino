@@ -7,7 +7,6 @@ namespace mino
     {
         public TechPrinter()
         {
-            Pcs = new HashSet<Pc>();
             PcsPrinters = new HashSet<PcsPrinter>();
         }
 
@@ -17,7 +16,6 @@ namespace mino
         public string? InventoryNumber { get; set; }
 
         public virtual TechModelsOfPrinter? ModelNavigation { get; set; }
-        public virtual ICollection<Pc> Pcs { get; set; }
         public virtual ICollection<PcsPrinter> PcsPrinters { get; set; }
     }
 }

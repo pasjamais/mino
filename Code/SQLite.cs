@@ -14,7 +14,7 @@ namespace mino
             public static string apppath = @".\";
             public static bool DatabasePooling = true;
             private static string connStringFormat = "Data Source =mino.db; Version =3; Pooling ={0}; Max Pool Size =1000;";
-            private static SQLiteParameterCollection parameters = new SQLiteCommand().Parameters;
+        public static SQLiteParameterCollection parameters = new SQLiteCommand().Parameters;
 
             public static string connString { get { return String.Format(connStringFormat, DatabasePooling); } }
             //[Obsolete("Preferably use Database.executeQuery instead")]

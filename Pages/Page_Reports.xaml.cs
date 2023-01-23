@@ -21,11 +21,17 @@ namespace mino
     /// </summary>
     public partial class Page_Reports : Page
     {
-        
+
 
         public Page_Reports()
         {
             InitializeComponent();
+            ReloadComboBox();
+            TextBoxQuery.Visibility = Visibility.Hidden;
+            RowDefinitionTop.Height = new GridLength(90);
+        }
+        private void ReloadComboBox()
+        {
             ComboBoxReports.ItemsSource = MainWindow.db_agent.Get_Queries();
             ComboBoxReports.DisplayMemberPath = "Name";
             ComboBoxReports.SelectedIndex = 0;
@@ -34,8 +40,8 @@ namespace mino
             ComboBoxReports.FontStretch = DataGridReport.FontStretch;
             ComboBoxReports.FontStyle = DataGridReport.FontStyle;
             ComboBoxReports.FontWeight = DataGridReport.FontWeight;
-        }
 
+        }
         private void ComboBoxReports_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
           
@@ -62,7 +68,7 @@ namespace mino
             TextBoxQuery.Visibility = Visibility.Visible;
             TextBoxQuery.IsEnabled = true;
             //     RowDefinitionTop.Height = new GridLength(0.5, GridUnitType.Star);
-            RowDefinitionTop.Height = new GridLength(150);
+            RowDefinitionTop.Height = new GridLength(210);
         }
 
         private void CheckBoxReports_Unchecked(object sender, RoutedEventArgs e)
@@ -72,18 +78,21 @@ namespace mino
             TextBoxQuery.Visibility = Visibility.Hidden;
         }
 
-        private async void Button_Click(object sender, RoutedEventArgs e)
+      
+
+
+        private async void Button_Dia_Save_Query_Click(object sender, RoutedEventArgs e)
         {
-            
             var query = new Query();
             query.Text = TextBoxQuery.Text;
             query.Name = "Название запроса";
             var DialogResult = await MaterialDesignThemes.Wpf.DialogHost.Show(query);
-            if (DialogResult != null) 
+            if (DialogResult != null)
                 if (DialogResult as String == "True")
                 {
                     MainWindow.db_agent.AddQuery(query);
-
+                    CheckBoxReports.IsChecked = false;
+                    ReloadComboBox();
                 };
         }
     }

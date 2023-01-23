@@ -7,31 +7,32 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="mino.Page_Reports"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Отчёты" Foreground="Black">
+      Title="Отчёты">
 
     <Grid x:Name="GridReports">
         <Grid.RowDefinitions>
 
-            <RowDefinition x:Name="RowDefinitionTop"  Height="90"/>
+            <RowDefinition x:Name="RowDefinitionTop"  Height="210"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel x:Name="StackPanelTop" Grid.Row="0" Orientation="Horizontal" Background="#FF9696AA" >
+        <StackPanel x:Name="StackPanelTop" Grid.Row="0" Orientation="Horizontal" >
             <StackPanel HorizontalAlignment="Left" Orientation="Vertical" >
                 <ComboBox x:Name="ComboBoxReports" Width="400" Margin="10,10,10,10" 
                   SelectionChanged="ComboBoxReports_SelectionChanged"  Text="Выберите отчёт"
-                  SelectedValuePath="Text" Background="{DynamicResource PrimaryHueDarkBrush}"/>
+                  SelectedValuePath="Text"/>
                 <CheckBox x:Name="CheckBoxReports" IsChecked="False" Content="Произвольный запрос" Style="{StaticResource MaterialDesignDarkCheckBox}" Margin="10,10,10,10" Checked="CheckBoxReports_Checked" Unchecked="CheckBoxReports_Unchecked" />
-                <TextBox x:Name="TextBoxQuery" IsEnabled="False"  AcceptsReturn="True" Visibility="Hidden"
-                 Margin="10,0,10,10" Grid.Row="1" TextWrapping="WrapWithOverflow" Text="" 
-                  Width="400" Height="60" Cursor="IBeam" BorderBrush="{DynamicResource SecondaryHueMidForegroundBrush}" Background="{DynamicResource PrimaryHueDarkBrush}"/>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Left">
-                <Button x:Name="ShowReport" Content="Показать" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,9,10" Click="ShowReport_Click" Cursor="Hand"/>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Left">
-                <materialDesign:DialogHost 
+                <TextBox x:Name="TextBoxQuery" 
+                         IsEnabled="False"  
+                         AcceptsReturn="True" 
+                         Visibility="Visible"
+                         Margin="10,0,10,10"  Width="400" Height="60"
+                         TextWrapping="WrapWithOverflow" 
+                         Text=""                   
+                         Cursor="IBeam" 
+                         FontFamily="Courier New" />
+                <materialDesign:DialogHost x:Name="DialogHost" 
                     CloseOnClickAway="True" 
-                    Height="77">
+                    Height="40" Width="404">
                     <materialDesign:DialogHost.DialogContentTemplate>
                         <DataTemplate DataType="local:Query">
                             <StackPanel Orientation="Vertical">
@@ -49,7 +50,8 @@
                                         HorizontalAlignment="Stretch"
                                         x:Name="TextBoxSaveQueryText" 
                                         Text="{Binding Text}"
-                                        AcceptsReturn="True"/>
+                                        AcceptsReturn="True"
+                                        FontFamily="Courier New"/>
                                 <StackPanel
                                             Orientation="Horizontal"
                                             HorizontalAlignment="Right" >
@@ -59,34 +61,28 @@
                                                     Margin="0 8 8 0"
                                                     Content="Сохранить"
                                                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                                    CommandParameter="True">
-
-                                    </Button>
+                                                    CommandParameter="True"/>
                                     <Button
                                                     Style="{StaticResource MaterialDesignFlatButton}"
                                                     IsCancel="True"
                                                     Margin="0 8 8 0"
                                                     Content="Отмена"
                                                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                                    CommandParameter="False">
-
-                                    </Button>
+                                                    CommandParameter="False"/>
                                 </StackPanel>
 
                             </StackPanel>
                         </DataTemplate>
                     </materialDesign:DialogHost.DialogContentTemplate>
-                   
-                    <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Сохранить запрос..."
-               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" Click="Button_Click"/>
+
+                    <Button x:Name="Button_Dia_Save_Query" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Сохранить запрос..."
+               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" Click="Button_Dia_Save_Query_Click" />
                 </materialDesign:DialogHost>
-
-
             </StackPanel>
-                
-
-
-
+            <StackPanel HorizontalAlignment="Left">
+                <Button x:Name="ShowReport" Content="Показать" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,9,10" Click="ShowReport_Click" Cursor="Hand"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Left"/>
         </StackPanel>
         <DataGrid x:Name="DataGridReport" IsReadOnly="True"  Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}"/>
 

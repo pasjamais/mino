@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Elements\Element_Query.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\Page_About.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -34,11 +37,11 @@
     <Compile Update="Pages\Page_Users.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Page_Cartridges.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Elements\Element_Query.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -67,9 +70,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\Page_Users.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Update="Page_Cartridges.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

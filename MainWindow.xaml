@@ -7,7 +7,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="mino.MainWindow"
         mc:Ignorable="d"
         Title="Mino" Height="800" Width="800" MinWidth="800" MinHeight="800" WindowStartupLocation="CenterScreen"
-     >
+     Closing="DataWindow_Closing">
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -16,7 +16,7 @@
         </Grid.ColumnDefinitions>
         <Grid x:Name="GridMenu" Grid.Row="0" Grid.Column="0" Background="#FF554BCF" Width="249" HorizontalAlignment="Left">
             <ListView x:Name="ListViewMenu"   HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="250">
-                <ListViewItem x:Name="ItemReports" Height="45" Width="200" Selected="ItemReports_Selected" >
+                <ListViewItem x:Name="ItemReports" Height="45" Width="200" Selected="ItemReports_Selected" IsEnabled="False" >
                     <StackPanel x:Name="StackPanelReports" Orientation="Horizontal" Width="187" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon  Kind="ChartBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="32" Height="32"/>
                         <TextBlock Text="Отчёты" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
@@ -34,7 +34,7 @@
                         <TextBlock Text="Журнал" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem x:Name="ItemPCs" Height="45" Width="200" HorizontalAlignment="Stretch" Selected="ItemPCs_Selected">
+                <ListViewItem x:Name="ItemPCs" Height="45" Width="200" HorizontalAlignment="Stretch" Selected="ItemPCs_Selected" IsEnabled="False">
                     <StackPanel x:Name="StackPanelPCs" Orientation="Horizontal" Width="187" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon  Kind="DesktopClassic" HorizontalAlignment="Left" VerticalAlignment="Center" Width="32" Height="32"/>
                         <TextBlock Text="Компьютеры" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
@@ -52,13 +52,13 @@
                         <TextBlock Text="Картриджи" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem x:Name="ItemHardware" Height="45" Width="200" Selected="ItemHardware_Selected">
+                <ListViewItem x:Name="ItemHardware" Height="45" Width="200" Selected="ItemHardware_Selected" IsEnabled="False">
                     <StackPanel x:Name="StackPanelPCs3" Orientation="Horizontal" Width="187" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon  Kind="Harddisk" HorizontalAlignment="Left" VerticalAlignment="Center" Width="32" Height="32"/>
                         <TextBlock Text="Железо" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem x:Name="ItemSoftware" Height="45" Width="200" Selected="ItemSoftware_Selected">
+                <ListViewItem x:Name="ItemSoftware" Height="45" Width="200" Selected="ItemSoftware_Selected" IsEnabled="False">
                     <StackPanel x:Name="StackPanelPCs2" Orientation="Horizontal" Width="187" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon  Kind="MicrosoftWindowsClassic" HorizontalAlignment="Left" VerticalAlignment="Center" Width="32" Height="32" FontSize="13"/>
                         <TextBlock Text="Софт" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
@@ -67,13 +67,13 @@
                 <ListViewItem x:Name="ItemCabinets" Height="45" Width="200" Selected="ItemCabinets_Selected" >
                     <StackPanel x:Name="StackPanelUsers1" Orientation="Horizontal" Width="187" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon  Kind="HomeOutline" HorizontalAlignment="Left" VerticalAlignment="Center" Width="32" Height="32"/>
-                        <TextBlock Text="Кабинеты и места" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
+                        <TextBlock Text="Кабинеты" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemAbout" Height="45" Width="200" Selected="ItemAbout_Selected">
                     <StackPanel x:Name="StackPanelUsers3" Orientation="Horizontal" Width="187" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon  Kind="Mushroom" HorizontalAlignment="Left" VerticalAlignment="Center" Width="32" Height="32"/>
-                        <TextBlock Text="Грибочек" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
+                        <TextBlock Text="О программе" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
                     </StackPanel>
                 </ListViewItem>
                 <ListViewItem x:Name="ItemExit" Height="45" Width="200" Selected="ItemExit_Selected" >
@@ -95,7 +95,7 @@
 
             </ListView>
         </Grid>
-        <Frame x:Name="FrameMain" Grid.Column="1" Content="" Background="#FFA2A2CC" NavigationUIVisibility="Hidden"/>
+        <Frame x:Name="FrameMain" Grid.Column="1" Content="" NavigationUIVisibility="Hidden"/>
 
     </Grid>
 </Window>

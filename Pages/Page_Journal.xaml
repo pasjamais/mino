@@ -3,12 +3,67 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:mino"
+      xmlns:local="clr-namespace:mino" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page_Journal">
 
     <Grid Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
-        <DataGrid x:Name="DataGridJournal" AutoGenerateColumns="true"  />
+        <Grid.RowDefinitions>
+            <RowDefinition x:Name="RowDefinitionTop"  Height="0.12*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" Orientation="Horizontal">
+            <materialDesign:DialogHost x:Name="DialogHost" 
+                    CloseOnClickAway="True" >
+                <materialDesign:DialogHost.DialogContent>
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Text="Выберите манипуляцию:" Margin="10,0,10,10" />
+                        <ComboBox x:Name="ComboBoxManipulation" Width="400" Margin="10,10,10,10" 
+                            Text=" Выберите манипуляцию" SelectedValuePath="Id" />
+                            <TextBlock Text="Суть:" Margin="10,0,10,10" />
+                        <TextBox        Width="400" Height="25"
+                                        Margin="10,0,10,10"
+                                        HorizontalAlignment="Stretch"
+                                        x:Name="TextBoxSaveComment" 
+                                        Text="{Binding Comment}"
+                                        AcceptsReturn="False"/>
+                            <TextBlock Text="Сотрудник:" Margin="10,0,10,10" />
+                        <ComboBox x:Name="ComboBoxUser" Width="400" Margin="10,10,10,10" 
+                                Text="Выберите сотрудника" SelectedValuePath="Id" />
+                        <StackPanel
+                                            Orientation="Horizontal"
+                                            HorizontalAlignment="Right" >
+                            <Button                 x:Name="Button_Save_Record"
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsDefault="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Сохранить запись"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="True"
+                                                    Click="Button_Save_Record_Click" />
+                                <Button
+                                                    Style="{StaticResource MaterialDesignFlatButton}"
+                                                    IsCancel="True"
+                                                    Margin="0 8 8 0"
+                                                    Content="Отмена"
+                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
+                                                    CommandParameter="False"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </materialDesign:DialogHost.DialogContent>
+                    <Button x:Name="Button_Dia_Save" 
+                            Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" 
+                            Content="Создать запись в журнале..."
+                            Click="Button_Dia_Save_Click" 
+                            HorizontalAlignment="Left" VerticalAlignment="Center"
+                            Margin="10 10 10 10"/>
+            </materialDesign:DialogHost>
+        </StackPanel>
+        
+        <DataGrid x:Name="DataGridJournal" IsReadOnly="True"  Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}"
+                  AutoGeneratingColumn="OnAutoGeneratingColumn"/>
+
     </Grid>
 </Page>

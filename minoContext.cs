@@ -21,6 +21,7 @@ namespace mino
         public virtual DbSet<Pc> Pcs { get; set; } = null!;
         public virtual DbSet<PcsPrinter> PcsPrinters { get; set; } = null!;
         public virtual DbSet<PcsScaner> PcsScaners { get; set; } = null!;
+        public virtual DbSet<Place> Places { get; set; } = null!;
         public virtual DbSet<Query> Queries { get; set; } = null!;
         public virtual DbSet<ServiceJournal> ServiceJournals { get; set; } = null!;
         public virtual DbSet<TechCamera> TechCameras { get; set; } = null!;
@@ -75,6 +76,9 @@ namespace mino
                 entity.HasIndex(e => e.Id, "IX_Credentials_id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.Name, "IX_Credentials_name")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name).HasColumnName("name");
@@ -110,17 +114,17 @@ namespace mino
                     .HasColumnType("BOOLEAN")
                     .HasColumnName("isNotebook");
 
+                entity.Property(e => e.LastInfoGetDate)
+                    .HasColumnType("DATE")
+                    .HasColumnName("last_info_get_date");
+
                 entity.Property(e => e.LastServiceDate)
                     .HasColumnType("DATE")
                     .HasColumnName("last_service_date");
 
-                entity.Property(e => e.Monitor).HasColumnName("monitor");
-
                 entity.Property(e => e.Name)
                     .HasColumnType("VARCHAR (50)")
                     .HasColumnName("name");
-
-                entity.Property(e => e.Printer).HasColumnName("printer");
 
                 entity.Property(e => e.RamBarsInUse).HasColumnName("ram_bars_in_use");
 
@@ -129,8 +133,6 @@ namespace mino
                 entity.Property(e => e.RamSize).HasColumnName("ram_size");
 
                 entity.Property(e => e.RamType).HasColumnName("ram_type");
-
-                entity.Property(e => e.Scaner).HasColumnName("scaner");
 
                 entity.Property(e => e.SoftAntivirus).HasColumnName("soft_Antivirus");
 
@@ -149,24 +151,9 @@ namespace mino
                     .HasForeignKey(d => d.CpuModel)
                     .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(d => d.MonitorNavigation)
-                    .WithMany(p => p.Pcs)
-                    .HasForeignKey(d => d.Monitor)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(d => d.PrinterNavigation)
-                    .WithMany(p => p.Pcs)
-                    .HasForeignKey(d => d.Printer)
-                    .OnDelete(DeleteBehavior.Restrict);
-
                 entity.HasOne(d => d.RamTypeNavigation)
                     .WithMany(p => p.Pcs)
                     .HasForeignKey(d => d.RamType)
-                    .OnDelete(DeleteBehavior.Restrict);
-
-                entity.HasOne(d => d.ScanerNavigation)
-                    .WithMany(p => p.Pcs)
-                    .HasForeignKey(d => d.Scaner)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasOne(d => d.SoftAntivirusNavigation)
@@ -237,6 +224,8 @@ namespace mino
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
                 entity.Property(e => e.Date)
                     .HasColumnType("DATETIME")
                     .HasColumnName("date")
@@ -257,6 +246,21 @@ namespace mino
                     .WithMany(p => p.PcsScaners)
                     .HasForeignKey(d => d.Scaner)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<Place>(entity =>
+            {
+                entity.HasIndex(e => e.Id, "IX_Places_id")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Name, "IX_Places_name")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
+                entity.Property(e => e.Name).HasColumnName("name");
             });
 
             modelBuilder.Entity<Query>(entity =>
@@ -309,6 +313,9 @@ namespace mino
                 entity.HasIndex(e => e.Id, "IX_tech_Cameras_id")
                     .IsUnique();
 
+                entity.HasIndex(e => e.InventoryNumber, "IX_tech_Cameras_InventoryNumber")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Name)
@@ -330,9 +337,7 @@ namespace mino
                 entity.HasIndex(e => e.Id, "IX_tech_Cartridges_Rotation_id")
                     .IsUnique();
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("id");
+                entity.Property(e => e.Id).HasColumnName("id");
 
                 entity.Property(e => e.Comment).HasColumnName("comment");
 
@@ -447,18 +452,30 @@ namespace mino
             {
                 entity.ToTable("tech_Monitors");
 
-                entity.HasIndex(e => e.Name, "IX_tech_Monitors_name")
+                entity.HasIndex(e => e.Id, "IX_tech_Monitors_id")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.InventoryNumber, "IX_tech_Monitors_InventoryNumber")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
 
                 entity.Property(e => e.Diagonal).HasColumnName("diagonal");
 
                 entity.Property(e => e.Name).HasColumnName("name");
 
+                entity.Property(e => e.Pc).HasColumnName("PC");
+
                 entity.HasOne(d => d.DiagonalNavigation)
                     .WithMany(p => p.TechMonitors)
                     .HasForeignKey(d => d.Diagonal)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(d => d.PcNavigation)
+                    .WithMany(p => p.TechMonitors)
+                    .HasForeignKey(d => d.Pc)
                     .OnDelete(DeleteBehavior.Restrict);
             });
 
@@ -467,6 +484,9 @@ namespace mino
                 entity.ToTable("tech_Monitor_diagonals");
 
                 entity.HasIndex(e => e.Diagonal, "IX_tech_Monitor_diagonals_diagonal")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Id, "IX_tech_Monitor_diagonals_id")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
@@ -554,7 +574,23 @@ namespace mino
 
                 entity.Property(e => e.Id).HasColumnName("id");
 
+                entity.Property(e => e.Comment).HasColumnName("comment");
+
+                entity.Property(e => e.ModelId).HasColumnName("modelId");
+
                 entity.Property(e => e.Name).HasColumnName("name");
+
+                entity.Property(e => e.Pc).HasColumnName("PC");
+
+                entity.HasOne(d => d.Model)
+                    .WithMany(p => p.TechScaners)
+                    .HasForeignKey(d => d.ModelId)
+                    .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(d => d.PcNavigation)
+                    .WithMany(p => p.TechScaners)
+                    .HasForeignKey(d => d.Pc)
+                    .OnDelete(DeleteBehavior.Restrict);
             });
 
             modelBuilder.Entity<TechSoftAntivirus>(entity =>
@@ -608,10 +644,15 @@ namespace mino
             {
                 entity.ToTable("tech_UPSs");
 
-                entity.HasIndex(e => e.Name, "IX_tech_UPSs_name")
+                entity.HasIndex(e => e.Id, "IX_tech_UPSs_id")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.InventoryNumber, "IX_tech_UPSs_InventoryNumber")
                     .IsUnique();
 
                 entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Comment).HasColumnName("comment");
 
                 entity.Property(e => e.Name).HasColumnName("name");
             });

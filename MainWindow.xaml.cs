@@ -26,7 +26,8 @@ namespace mino
         public MainWindow()
         {
             InitializeComponent();
-                    }
+            dbAgent.Backup_DB();
+        }
         void DataWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             db_agent.Close();
@@ -81,7 +82,6 @@ namespace mino
         {
             FrameMain.Navigate(new Page_Reports());
         }
-
         private void ItemCartridges_Selected(object sender, RoutedEventArgs e)
         {
             FrameMain.Navigate(new Page_Cartridges());

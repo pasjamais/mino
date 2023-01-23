@@ -11,7 +11,7 @@ namespace mino
         }
 
         public long Id { get; set; }
-        public string? Name { get; set; }
+        public string Name { get; set; } = null!;
 
         public virtual ICollection<ServiceJournal> ServiceJournals { get; set; }
     }

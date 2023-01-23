@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace mino
 {
-    public partial class Cabinet
+    public partial class Place
     {
-        public Cabinet()
+        public Place()
         {
-            Users = new HashSet<User>();
+            TechCartridgesRotations = new HashSet<TechCartridgesRotation>();
         }
 
         public long Id { get; set; }
         public string Name { get; set; } = null!;
         public string? Comment { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<TechCartridgesRotation> TechCartridgesRotations { get; set; }
     }
 }
