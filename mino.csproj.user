@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup>
+    <ApplicationDefinition Update="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Pages\Page_About.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Page_Cabinets.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Page_Hardware.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Page_Journal.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Page_PCs.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Page_Printers.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Page_Reports.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Page_Software.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\Page_Users.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Page_Cartridges.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_About.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_Cabinets.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_Hardware.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_Journal.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_PCs.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_Printers.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_Reports.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_Software.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\Page_Users.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Page_Cartridges.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>

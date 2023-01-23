@@ -1,0 +1,36 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:mino"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="mino.Page_Users"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Page_Users">
+
+    <Grid>
+
+        <DataGrid x:Name="DataGridUsers" AutoGenerateColumns="false" IsReadOnly="False" CellEditEnding="DataGridUsers_CellEditEnding">
+            <DataGrid.Columns>
+                <DataGridTextColumn/>
+                <DataGridTextColumn Header="Ф.И.О."     Binding="{Binding Name,     UpdateSourceTrigger = PropertyChanged}"/>
+                <DataGridTextColumn Header="Кабинет"    Binding="{Binding Cabinet,  UpdateSourceTrigger = PropertyChanged}"/>
+                <DataGridTextColumn Header="Доп. инфо"  Binding="{Binding Comment,  UpdateSourceTrigger = PropertyChanged}"/>
+                <DataGridTemplateColumn Width="auto">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button  Height="24" Width="47" Click="Button_Click">
+                                <materialDesign:PackIcon Kind="ContentSaveEditOutline" Width="16" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+   
+
+
+    </Grid>
+</Page>
