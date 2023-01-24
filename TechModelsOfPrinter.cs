@@ -13,7 +13,7 @@ namespace mino
 
         public long Id { get; set; }
         public string? Name { get; set; }
-        public decimal? IsMfu { get; set; }
+        public bool? IsMfu { get; set; }
         public long? MfuScanerModel { get; set; }
 
         public virtual TechModelsOfScaner? MfuScanerModelNavigation { get; set; }

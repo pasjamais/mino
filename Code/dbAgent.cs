@@ -173,7 +173,7 @@ namespace mino
             var queries = db.Queries.ToList();
             return queries;
         }
-                public Query Get_Query(int number)
+        public Query Get_Query(int number)
         {
             var queries = db.Queries.ToList();
             return queries[number];
@@ -219,7 +219,7 @@ namespace mino
             db.Places.Add(place);
             db.SaveChanges();
         }
-        public Place GetPlace(long id)
+        public Place? GetPlace(long id)
         {
             return db.Places.Find(id);
 
@@ -242,6 +242,31 @@ namespace mino
 
         }
         #endregion
+
+        #region Printer
+        public void DeletePrinter(TechPrinter printer)
+        {
+            db.TechPrinters.Remove(printer);
+            db.SaveChanges();
+        }
+
+        public List<TechPrinter> Get_Printers()
+        {
+            var printers = db.TechPrinters.ToList();
+            return printers;
+        }
+
+        public TechPrinter? GetPrinter(long id)
+        {
+            return db.TechPrinters.Find(id);
+        }
+        public void AddPrinter(TechPrinter printer)
+        {
+            db.TechPrinters.Add(printer);
+            db.SaveChanges();
+        }
+        #endregion
+
 
         #region ModelOfCartridge
         public void AddCartridgeModel(TechModelsOfCartridge cartridgeModel)

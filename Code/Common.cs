@@ -13,18 +13,49 @@ namespace mino
             // константы с номерами нужных запросов, хранящихся в БД
             public static readonly int Number_of_Query_Journal                          = 1;
             public static readonly int Number_of_Query_Printers                         = 7;
+            public static readonly int Number_of_Query_Aventures_of_Printer             = 8;
+            public static readonly int Number_of_Query_Where_is_Printer                 = 9;
             public static readonly int Number_of_Query_Where_Are_Printers_Now           = 10;
+            public static readonly int Number_of_Query_Where_Are_Printers_of_Model      = 11;
+            public static readonly int Number_of_Query_Full_Cartridges_for_PrinterModel = 12;
+            public static readonly int Number_of_Query_Compatible_Cartridges_for_PrinterModel = 13;
             public static readonly int Number_of_Query_Cartridges_Assortiment           = 14;
+            public static readonly int Number_of_Query_PCs                              = 18;
             public static readonly int Number_of_Query_Cartridges_for_Printer_Model     = 19;
             public static readonly int Number_of_Query_Cartridges_Rotation              = 20;
             public static readonly int Number_of_Query_Cartridges_by_User               = 24;
             public static readonly int Cartridges_Places                                = 25;
             public static readonly int Cartridge_Models_list                            = 26;
-            public static readonly int Alliances                                        = 27;
+            public static readonly int Number_of_Query_Alliances                        = 27;
             public static readonly int Number_of_Query_Change_Alliance                  = 28;
             public static readonly int Number_of_Query_Del_Alliance                     = 29;
             public static readonly int Number_of_Query_Users_and_PCs                    = 30;
-            public static readonly int Number_of_Query_List_of_Printer_Models           = 31;  
+            public static readonly int Number_of_Query_List_of_Printer_Models           = 31;
+            public static readonly int Number_of_Query_List_Printers_Mouvement          = 32;
+
+            public static readonly List<long> List_Queries_for_Printers = new List<long>() {
+                Number_of_Query_Printers,
+                Number_of_Query_Where_Are_Printers_Now,
+                Number_of_Query_List_Printers_Mouvement,
+                //
+                Number_of_Query_Aventures_of_Printer,
+                Number_of_Query_Where_is_Printer,
+                Number_of_Query_Where_Are_Printers_of_Model,
+                Number_of_Query_Full_Cartridges_for_PrinterModel,
+                Number_of_Query_Compatible_Cartridges_for_PrinterModel,
+                Number_of_Query_Cartridges_for_Printer_Model
+            };
+            public static readonly List<long> List_Queries_for_PrinterModels_With_Parametre = new List<long>() {
+                Number_of_Query_Where_Are_Printers_of_Model,            // WHERE tech_Models_of_Printer.id = @ModelId 
+                Number_of_Query_Full_Cartridges_for_PrinterModel,       // WHERE tech_Models_of_Printer.id = @PrinterId
+                Number_of_Query_Compatible_Cartridges_for_PrinterModel, // WHERE tech_Models_of_Printer.id = @PrinterId
+                Number_of_Query_Cartridges_for_Printer_Model            // WHERE tech_Models_of_Printer.Id = @PrinterId;
+                };
+        public static readonly List<long> List_Queries_for_Printers_With_Parametre = new List<long>() {
+                Number_of_Query_Aventures_of_Printer,                   // WHERE PCs_Printers.printer = @PrinterId
+                Number_of_Query_Where_is_Printer                       // FROM PCs_Printers WHERE printer = @PrinterId
+              };
+
 
         public static readonly string Del_Confirmation = "В самом деле удалить\n";
 
@@ -33,7 +64,12 @@ namespace mino
                         {"Поступил", 1 },
                         {"Выбыл",   -1 }
                     };
-            public static readonly Dictionary<int, string> TB_Place_Text = new Dictionary <int, string>
+        public static readonly Dictionary<int, string> Printer_Models_Type = new Dictionary<int, string>
+                    {
+                        {0, "Принтер"},
+                        {1, "МФУ"  }
+                    };
+        public static readonly Dictionary<int, string> TB_Place_Text = new Dictionary <int, string>
                     {
                         { 1, "в..." },
                         {-1, "из..." }
@@ -53,6 +89,7 @@ namespace mino
                         {10, "\nЗагрузка железа..."},
                         {11, "\nЗагрузка софта..."},
                         {12, "\nО программе ..."},
+                        {19, "\nСущность уже есть!"},
                         {20, "\nФИО не может быть пустым!"},
                         {21, "\nСущность создана: "},
                         {22, "\nПК присвоен"},

@@ -59,7 +59,7 @@
 
                         </StackPanel>
                     </materialDesign:DialogHost.DialogContent>
-                    <Button x:Name="Button_Dia_Save" 
+                <Button x:Name="Button_Dia_Save"  BorderBrush="#FF4042CE" Background="#FF9E7335"
                             Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" 
                             Content="Создать запись в журнале..."
                             Click="Button_Dia_Save_Click" 

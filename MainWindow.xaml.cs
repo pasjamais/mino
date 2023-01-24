@@ -58,7 +58,7 @@ namespace mino
         private void ItemPCs_Selected(object sender, RoutedEventArgs e)
         {
             StatusProperty.Message += Common.Status_Texts[6];
-            FrameMain.Navigate(new Page_PCs());
+            FrameMain.Navigate(new Page_PCs(StatusProperty));
         }
 
       

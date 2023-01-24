@@ -8,5 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Page_PCs">
 
-    <Grid Background="#FFC01B1B"/>
+    <Grid>
+        <DataGrid x:Name="DataGridReport" Grid.Row="1" IsReadOnly="True"  SelectionMode="Single"
+                  AutoGeneratingColumn="OnAutoGeneratingColumn" 
+                  d:ItemsSource="{d:SampleData ItemCount=5}"/>
+        
+    </Grid>
 </Page>

@@ -45,7 +45,7 @@ namespace mino
                     Button_Dia_Add_Place.IsEnabled = Button_Dia_Add_Alliance.IsEnabled = false;
                     Button_Dia_Add_CarModel.IsEnabled = true;
                 }
-                if (reportNumber == Common.Alliances)
+                if (reportNumber == Common.Number_of_Query_Alliances)
                 {
                     Button_Dia_Add_Place.IsEnabled = Button_Dia_Add_CarModel.IsEnabled = false;
                     Button_Dia_Add_Alliance.IsEnabled = true;
@@ -98,12 +98,28 @@ namespace mino
             }
             else Button_Dia_Add_CarModel.IsEnabled = Button_Dia_Cha_CarModel.IsEnabled = Button_Dia_Del_CarModel.IsEnabled = false;
             //Группы совместимости 
-            if ((GridCartridges.SelectedIndex >= 0) && (ReportNumber == Common.Alliances))
+            if ((GridCartridges.SelectedIndex >= 0) && (ReportNumber == Common.Number_of_Query_Alliances))
             {
                 Button_Dia_Add_Alliance.IsEnabled = Button_Dia_Cha_Alliance.IsEnabled = Button_Dia_Del_Alliance.IsEnabled = true;
             }
             else Button_Dia_Add_Alliance.IsEnabled = Button_Dia_Cha_Alliance.IsEnabled = Button_Dia_Del_Alliance.IsEnabled = false;
         }
+
+        /// <summary>
+        /// Находит ID 
+        /// </summary>
+        internal long GetIDbyRow()
+        {
+            long id = 0;
+            DataRowView row = (DataRowView)GridCartridges.Items[GridCartridges.SelectedIndex];
+            if (GridCartridges.Columns.Count > 0)
+            {
+                if (!(row.Row.ItemArray[0] == null || row.Row.ItemArray[0] == DBNull.Value))
+                    id = int.Parse(row.Row.ItemArray[0].ToString());
+            }
+            return id;
+        }
+
         #endregion
 
         #region Mouvement
@@ -281,21 +297,36 @@ namespace mino
 
         #endregion
 
+
+
+
         #region Alliances
+
+ 
 
         private void ButtonShowAlliances_Click(object sender, RoutedEventArgs e)
         {
-            RefillGridCartridges(Common.Alliances);
+            RefillGridCartridges(Common.Number_of_Query_Alliances);
 
         }
 
         private void Button_Dia_Del_Alliance_Click(object sender, RoutedEventArgs e)
         {
-            if ((GridCartridges.SelectedIndex >= 0) && (ReportNumber == Common.Alliances))
+            if ((GridCartridges.SelectedIndex >= 0) && (ReportNumber == Common.Number_of_Query_Alliances))
             {
                 DataRowView row = (DataRowView)GridCartridges.Items[GridCartridges.SelectedIndex];
-                string printerName = (String)row.Row.ItemArray[0];
-                string cartridgeName = (String)row.Row.ItemArray[1];
+                string printerName = "";
+                string cartridgeName = "";
+                if (GridCartridges.Columns.Count > 1)
+                {
+                    if (!(row.Row.ItemArray[1] == null || row.Row.ItemArray[0] == DBNull.Value))
+                        printerName = (string)row.Row.ItemArray[1];
+                }
+                if (GridCartridges.Columns.Count >2 )
+                {
+                    if (!(row.Row.ItemArray[2] == null || row.Row.ItemArray[0] == DBNull.Value))
+                        cartridgeName = (string)row.Row.ItemArray[2];
+                }
                 TB_Confirmation_Del_Alliance.Text = Common.Del_Confirmation +
                     "альянс принтер "+ printerName +" - картридж " + cartridgeName + '?';
             }
@@ -303,50 +334,31 @@ namespace mino
 
         private void Button_Del_Alliance_Click(object sender, RoutedEventArgs e)
         {
-            if ((GridCartridges.SelectedIndex >= 0) && (ReportNumber == Common.Alliances))
+            if ((GridCartridges.SelectedIndex >= 0) && (ReportNumber == Common.Number_of_Query_Alliances))
             {
                 Button_Dia_Cha_Alliance.IsEnabled = false;
                 Button_Dia_Del_Alliance.IsEnabled = false;
                 DataRowView row = (DataRowView)GridCartridges.Items[GridCartridges.SelectedIndex];
-                string printerName = (String)row.Row.ItemArray[0];
-                string cartridgeName = (String)row.Row.ItemArray[1];
-                string query_text = MainWindow.db_agent.GetQueryText(Common.Number_of_Query_Del_Alliance);
-                SQLite.AddParams("@Printer", printerName);
-                SQLite.AddParams("@Cartridge", cartridgeName);
-                DataTable ds = new DataTable();
-                SQLite.fill(query_text, ds);
-                GridCartridges.ItemsSource = ds.DefaultView; // Лишнее
-                SQLite.ClearParams();
-                RefillGridCartridges(Common.Alliances);
+                long alliance_id = GetIDbyRow();
+                TechPrinterCartridgeAlliance alliance = MainWindow.db_agent.GetAlliance(alliance_id);
+                MainWindow.db_agent.DeleteAlliance(alliance);
+                StatusProperty.Message += Common.Status_Texts[24];
+                RefillGridCartridges(Common.Number_of_Query_Alliances);
             }
         }
 
         private void Button_Dia_Cha_Alliance_Click(object sender, RoutedEventArgs e)
         {
             
-            if ((GridCartridges.SelectedIndex >= 0) && (ReportNumber == Common.Alliances))
+            if ((GridCartridges.SelectedIndex >= 0) && (ReportNumber == Common.Number_of_Query_Alliances))
             {
                 ComboBoxChangeAlliancePrinterModel.ItemsSource = MainWindow.db_agent.Get_Printer_Models();
                 ComboBoxChangeAllianceCartridgeModel.ItemsSource = MainWindow.db_agent.Get_CartridgeModels();
                 ComboBoxChangeAllianceCartridgeModel.DisplayMemberPath = ComboBoxChangeAlliancePrinterModel.DisplayMemberPath = "Name";
-               
-                DataRowView row = (DataRowView)GridCartridges.Items[GridCartridges.SelectedIndex];
-                string printerName = (String)row.Row.ItemArray[0];
-                string cartridgeName = (String)row.Row.ItemArray[1];
-                string query_text = MainWindow.db_agent.GetQueryText(Common.Number_of_Query_Change_Alliance);
-                
-                TechModelsOfCartridge cartridge = (from p in MainWindow.db_agent.Get_CartridgeModels()
-                                                  where p.Name == cartridgeName
-                                                  select p).Take(1).First();
-                TechModelsOfPrinter printer = (from p in MainWindow.db_agent.Get_Printer_Models()
-                                                  where p.Name == printerName
-                                                  select p).Take(1).First();
-                long alliance_id = (from p in MainWindow.db_agent.Get_Alliances()
-                                    where p.CartridgeModel == cartridge.Id && p.PrinterModel == printer.Id
-                                    select p).Take(1).First().Id;
+                long alliance_id = GetIDbyRow();
                 alliance_temporary = MainWindow.db_agent.GetAlliance(alliance_id);
-                ComboBoxChangeAlliancePrinterModel.SelectedIndex = ComboBoxChangeAlliancePrinterModel.Items.IndexOf(printer);
-                ComboBoxChangeAllianceCartridgeModel.SelectedIndex = ComboBoxChangeAllianceCartridgeModel.Items.IndexOf(cartridge);
+                ComboBoxChangeAlliancePrinterModel.SelectedValue = (System.Int64)alliance_temporary.PrinterModel;
+                ComboBoxChangeAllianceCartridgeModel.SelectedValue = (System.Int64)alliance_temporary.CartridgeModel;
             }
             
         }
@@ -373,8 +385,14 @@ namespace mino
                         alliance_temporary.CartridgeModel = (System.Int64)ComboBoxChangeAllianceCartridgeModel.SelectedValue;
                         alliance_temporary.PrinterModel = (System.Int64)ComboBoxChangeAlliancePrinterModel.SelectedValue;
                         MainWindow.db_agent.SaveChanges();
+                        StatusProperty.Message += Common.Status_Texts[26] + alliance_temporary.Id.ToString();
                         alliance_temporary = null;
-                        RefillGridCartridges(Common.Alliances);
+                        RefillGridCartridges(Common.Number_of_Query_Alliances);
+                    }
+                    else
+                    {
+                        StatusProperty.Message += Common.Status_Texts[19];
+                        alliance_temporary = null;
                     }
 
 
@@ -402,7 +420,7 @@ namespace mino
                 alliance.PrinterModel = (System.Int64)ComboBoxAddAlliancePrinterModel.SelectedValue;
                 MainWindow.db_agent.AddAlliance(alliance);
                   }
-            RefillGridCartridges(Common.Alliances); // Перезаполним грид таблицей совместимости принтер-картридж
+            RefillGridCartridges(Common.Number_of_Query_Alliances); // Перезаполним грид таблицей совместимости принтер-картридж
         }
         #endregion
 
