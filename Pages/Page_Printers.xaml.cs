@@ -370,6 +370,14 @@ namespace mino
                     CB_Parametre.ItemsSource = MainWindow.db_agent.Get_Printer_Models();
                 }
             else
+                if (Common.Number_of_Query_List_Printers_by_Cartridge_Model == (int)(long)CBOtherQuery.SelectedValue)
+                {
+                    CB_Parametre.DisplayMemberPath = "Name";
+                    CB_Parametre.ItemsSource = MainWindow.db_agent.Get_CartridgeModels();
+                }
+                
+
+            else
             {
                 RefillGrid((int)(long)CBOtherQuery.SelectedValue);
                 StatusProperty.Message += Common.Status_Texts[30] + MainWindow.db_agent.GetQueryName((int)(long)CBOtherQuery.SelectedValue);
@@ -382,7 +390,8 @@ namespace mino
         {
             if (ReportNumber == -1)
             {
-                if ( (int)(long)CBOtherQuery.SelectedValue == Common.Number_of_Query_Where_Are_Printers_of_Model)
+                if ( (int)(long)CBOtherQuery.SelectedValue ==  Common.Number_of_Query_Where_Are_Printers_of_Model ||
+                     (int)(long)CBOtherQuery.SelectedValue == Common.Number_of_Query_List_Printers_by_Cartridge_Model)
                     SQLite.AddParams("@ModelId", CB_Parametre.SelectedValue);
                 SQLite.AddParams("@PrinterId", CB_Parametre.SelectedValue);
                 DataTable ds = new DataTable();

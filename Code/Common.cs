@@ -23,7 +23,7 @@ namespace mino
             public static readonly int Number_of_Query_Full_Cartridges_for_PrinterModel = 12;
             public static readonly int Number_of_Query_Compatible_Cartridges_for_PrinterModel = 13;
             public static readonly int Number_of_Query_Cartridges_Assortiment           = 14;
-            public static readonly int Number_of_Query_PCs                              = 18;
+            public static readonly int Number_of_Query_PCs                              = 34;
             public static readonly int Number_of_Query_Cartridges_for_Printer_Model     = 19;
             public static readonly int Number_of_Query_Cartridges_Rotation              = 20;
             public static readonly int Number_of_Query_Cartridges_by_User               = 24;
@@ -35,8 +35,9 @@ namespace mino
             public static readonly int Number_of_Query_Users_and_PCs                    = 30;
             public static readonly int Number_of_Query_List_of_Printer_Models           = 31;
             public static readonly int Number_of_Query_List_Printers_Mouvement          = 32;
+            public static readonly int Number_of_Query_List_Printers_by_Cartridge_Model = 33; // WHERE tech_Models_of_Cartridge.Id = @Id;
 
-            public static readonly List<long> List_Queries_for_Printers = new List<long>() {
+        public static readonly List<long> List_Queries_for_Printers = new List<long>() {
                 Number_of_Query_Printers,
                 Number_of_Query_Where_Are_Printers_Now,
                 Number_of_Query_List_Printers_Mouvement,
@@ -46,7 +47,8 @@ namespace mino
                 Number_of_Query_Where_Are_Printers_of_Model,
                 Number_of_Query_Full_Cartridges_for_PrinterModel,
                 Number_of_Query_Compatible_Cartridges_for_PrinterModel,
-                Number_of_Query_Cartridges_for_Printer_Model
+                Number_of_Query_Cartridges_for_Printer_Model,
+                Number_of_Query_List_Printers_by_Cartridge_Model
             };
             public static readonly List<long> List_Queries_for_PrinterModels_With_Parametre = new List<long>() {
                 Number_of_Query_Where_Are_Printers_of_Model,            // WHERE tech_Models_of_Printer.id = @ModelId 
@@ -56,8 +58,8 @@ namespace mino
                 };
         public static readonly List<long> List_Queries_for_Printers_With_Parametre = new List<long>() {
                 Number_of_Query_Aventures_of_Printer,                   // WHERE PCs_Printers.printer = @PrinterId
-                Number_of_Query_Where_is_Printer                       // FROM PCs_Printers WHERE printer = @PrinterId
-              };
+                Number_of_Query_Where_is_Printer                       // FROM PCs_Printers WHERE printer = @PrinterId     
+    };
 
         public static readonly List<long> List_Different_Reports = new List<long>() {
                 Number_of_Query_Users_Activity,

@@ -9,6 +9,7 @@ namespace mino
         {
             PcsPrinters = new HashSet<PcsPrinter>();
             PcsScaners = new HashSet<PcsScaner>();
+            TechHdds = new HashSet<TechHdd>();
             TechMonitors = new HashSet<TechMonitor>();
             TechScaners = new HashSet<TechScaner>();
         }
@@ -32,6 +33,7 @@ namespace mino
         public long? SoftOs { get; set; }
         public bool? IsNotebook { get; set; }
         public DateTime? LastInfoGetDate { get; set; }
+        public DateTime? OsSetupDate { get; set; }
 
         public virtual TechModelsOfCpu? CpuModelNavigation { get; set; }
         public virtual TechRamType? RamTypeNavigation { get; set; }
@@ -42,6 +44,7 @@ namespace mino
         public virtual User? UserNavigation { get; set; }
         public virtual ICollection<PcsPrinter> PcsPrinters { get; set; }
         public virtual ICollection<PcsScaner> PcsScaners { get; set; }
+        public virtual ICollection<TechHdd> TechHdds { get; set; }
         public virtual ICollection<TechMonitor> TechMonitors { get; set; }
         public virtual ICollection<TechScaner> TechScaners { get; set; }
     }

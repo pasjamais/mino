@@ -26,6 +26,8 @@ namespace mino
         public virtual DbSet<ServiceJournal> ServiceJournals { get; set; } = null!;
         public virtual DbSet<TechCamera> TechCameras { get; set; } = null!;
         public virtual DbSet<TechCartridgesRotation> TechCartridgesRotations { get; set; } = null!;
+        public virtual DbSet<TechDiskType> TechDiskTypes { get; set; } = null!;
+        public virtual DbSet<TechHdd> TechHdds { get; set; } = null!;
         public virtual DbSet<TechModelsOfCartridge> TechModelsOfCartridges { get; set; } = null!;
         public virtual DbSet<TechModelsOfCpu> TechModelsOfCpus { get; set; } = null!;
         public virtual DbSet<TechModelsOfPrinter> TechModelsOfPrinters { get; set; } = null!;
@@ -42,6 +44,15 @@ namespace mino
         public virtual DbSet<TechUpss> TechUpsses { get; set; } = null!;
         public virtual DbSet<TypesOfService> TypesOfServices { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<АссортиментИКоличествоКартриджейВНаличии> АссортиментИКоличествоКартриджейВНаличииs { get; set; } = null!;
+        public virtual DbSet<ГдеКакойПринтерСейчас> ГдеКакойПринтерСейчасs { get; set; } = null!;
+        public virtual DbSet<ДвижениеКартриджей> ДвижениеКартриджейs { get; set; } = null!;
+        public virtual DbSet<ДвижениеПринтеров> ДвижениеПринтеровs { get; set; } = null!;
+        public virtual DbSet<Журнал> Журналs { get; set; } = null!;
+        public virtual DbSet<Пк> Пкs { get; set; } = null!;
+        public virtual DbSet<РейтингАктивностиСотрудников> РейтингАктивностиСотрудниковs { get; set; } = null!;
+        public virtual DbSet<РейтингВостребованностиСервисов> РейтингВостребованностиСервисовs { get; set; } = null!;
+        public virtual DbSet<СписокПользователейИИхПк> СписокПользователейИИхПкs { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -125,6 +136,10 @@ namespace mino
                 entity.Property(e => e.Name)
                     .HasColumnType("VARCHAR (50)")
                     .HasColumnName("name");
+
+                entity.Property(e => e.OsSetupDate)
+                    .HasColumnType("DATE")
+                    .HasColumnName("OS_Setup_Date");
 
                 entity.Property(e => e.RamBarsInUse).HasColumnName("ram_bars_in_use");
 
@@ -361,6 +376,55 @@ namespace mino
                     .WithMany(p => p.TechCartridgesRotations)
                     .HasForeignKey(d => d.Place)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<TechDiskType>(entity =>
+            {
+                entity.ToTable("tech_Disk_Types");
+
+                entity.HasIndex(e => e.Id, "IX_tech_Disk_Types_id")
+                    .IsUnique();
+
+                entity.HasIndex(e => e.Name, "IX_tech_Disk_Types_Name")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Name).HasColumnType("VARCHAR");
+            });
+
+            modelBuilder.Entity<TechHdd>(entity =>
+            {
+                entity.ToTable("tech_HDDs");
+
+                entity.HasIndex(e => e.Id, "IX_tech_HDDs_id")
+                    .IsUnique();
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.Comment).HasColumnType("VARCHAR");
+
+                entity.Property(e => e.HasSystemPartition)
+                    .HasColumnType("BOOLEAN")
+                    .HasColumnName("Has_System_Partition");
+
+                entity.Property(e => e.IdDiskType).HasColumnName("Id_Disk_Type");
+
+                entity.Property(e => e.IdPc).HasColumnName("id_PC");
+
+                entity.Property(e => e.Name).HasColumnType("VARCHAR");
+
+                entity.Property(e => e.SerialNumber)
+                    .HasColumnType("VARCHAR")
+                    .HasColumnName("Serial_Number");
+
+                entity.HasOne(d => d.IdDiskTypeNavigation)
+                    .WithMany(p => p.TechHdds)
+                    .HasForeignKey(d => d.IdDiskType);
+
+                entity.HasOne(d => d.IdPcNavigation)
+                    .WithMany(p => p.TechHdds)
+                    .HasForeignKey(d => d.IdPc);
             });
 
             modelBuilder.Entity<TechModelsOfCartridge>(entity =>
@@ -698,6 +762,167 @@ namespace mino
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.Credentials)
                     .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<АссортиментИКоличествоКартриджейВНаличии>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Ассортимент  и количество картриджей в наличии");
+
+                entity.Property(e => e.Картридж).HasColumnType("VARCHAR (100)");
+            });
+
+            modelBuilder.Entity<ГдеКакойПринтерСейчас>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Где какой принтер сейчас");
+
+                entity.Property(e => e.Дата).HasColumnName("ДАТА");
+
+                entity.Property(e => e.ИнфоОПринтере).HasColumnName("Инфо о принтере");
+
+                entity.Property(e => e.Кабинет).HasColumnType("VARCHAR (3)");
+
+                entity.Property(e => e.Модель).HasColumnType("VARCHAR (40)");
+
+                entity.Property(e => e.Пк)
+                    .HasColumnType("VARCHAR (50)")
+                    .HasColumnName("ПК");
+            });
+
+            modelBuilder.Entity<ДвижениеКартриджей>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Движение картриджей");
+
+                entity.Property(e => e.Дата).HasColumnType("DATETIME");
+
+                entity.Property(e => e.МодельКартриджа)
+                    .HasColumnType("VARCHAR (100)")
+                    .HasColumnName("Модель картриджа");
+            });
+
+            modelBuilder.Entity<ДвижениеПринтеров>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Движение принтеров");
+
+                entity.Property(e => e.Дата).HasColumnType("DATETIME");
+
+                entity.Property(e => e.Модель).HasColumnType("VARCHAR (40)");
+
+                entity.Property(e => e.Пк)
+                    .HasColumnType("VARCHAR (50)")
+                    .HasColumnName("ПК");
+
+                entity.Property(e => e.СведенияОПринтере).HasColumnName("Сведения о принтере");
+
+                entity.Property(e => e.ЧтоБыло).HasColumnName("Что было");
+            });
+
+            modelBuilder.Entity<Журнал>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Журнал");
+
+                entity.Property(e => e.Дата).HasColumnType("DATETIME");
+            });
+
+            modelBuilder.Entity<Пк>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("ПК");
+
+                entity.Property(e => e.Ip)
+                    .HasColumnType("VARCHAR (15)")
+                    .HasColumnName("IP");
+
+                entity.Property(e => e.Ибп).HasColumnName("ИБП");
+
+                entity.Property(e => e.ИмяПк)
+                    .HasColumnType("VARCHAR (50)")
+                    .HasColumnName("Имя ПК");
+
+                entity.Property(e => e.Инвентарный)
+                    .HasColumnType("VARCHAR (30)")
+                    .HasColumnName("Инвентарный №");
+
+                entity.Property(e => e.МодельЦп).HasColumnName("Модель ЦП");
+
+                entity.Property(e => e.Ноутбук).HasColumnType("BOOLEAN");
+
+                entity.Property(e => e.ОзуГб).HasColumnName("ОЗУ, ГБ");
+
+                entity.Property(e => e.Ос).HasColumnName("ОС");
+
+                entity.Property(e => e.ОфисныйПакет).HasColumnName("Офисный пакет");
+
+                entity.Property(e => e.ПоследнееОбновлениеСведений)
+                    .HasColumnType("DATE")
+                    .HasColumnName("Последнее обновление сведений");
+
+                entity.Property(e => e.ПоследнееСервиснОбслуживания)
+                    .HasColumnType("DATE")
+                    .HasColumnName("Последнее сервисн. обслуживания");
+
+                entity.Property(e => e.РейтингЦп)
+                    .HasColumnType("DECIMAL")
+                    .HasColumnName("Рейтинг ЦП");
+
+                entity.Property(e => e.СлотовОзуВсего).HasColumnName("Слотов ОЗУ всего");
+
+                entity.Property(e => e.СлотовОзуИспольз).HasColumnName("Слотов ОЗУ использ.");
+
+                entity.Property(e => e.СпециальныйСофт).HasColumnName("Специальный софт");
+
+                entity.Property(e => e.ТипОзу)
+                    .HasColumnType("VARCHAR (20)")
+                    .HasColumnName("Тип ОЗУ");
+
+                entity.Property(e => e.ЧастотаЦп).HasColumnName("частота ЦП");
+            });
+
+            modelBuilder.Entity<РейтингАктивностиСотрудников>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Рейтинг активности сотрудников");
+            });
+
+            modelBuilder.Entity<РейтингВостребованностиСервисов>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Рейтинг востребованности сервисов");
+
+                entity.Property(e => e.КоличествоОбращений).HasColumnName("Количество обращений");
+
+                entity.Property(e => e.ТипСервиса).HasColumnName("Тип сервиса");
+            });
+
+            modelBuilder.Entity<СписокПользователейИИхПк>(entity =>
+            {
+                entity.HasNoKey();
+
+                entity.ToView("Список пользователей и их ПК");
+
+                entity.Property(e => e.Ip)
+                    .HasColumnType("VARCHAR (15)")
+                    .HasColumnName("IP");
+
+                entity.Property(e => e.Кабинет).HasColumnType("VARCHAR (3)");
+
+                entity.Property(e => e.Пк)
+                    .HasColumnType("VARCHAR (50)")
+                    .HasColumnName("ПК");
+
+                entity.Property(e => e.Фио).HasColumnName("ФИО");
             });
 
             OnModelCreatingPartial(modelBuilder);

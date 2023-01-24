@@ -62,7 +62,7 @@ namespace mino
         }
         public List<Cabinet> Get_Cabinets()
         {
-            var cabinets = db.Cabinets.ToList();
+            var cabinets = db.Cabinets.OrderBy(x => x.Name).ToList();
             return cabinets;
         }
 
@@ -76,7 +76,7 @@ namespace mino
         #region PC
         public List<Pc> GetPCs()
         {
-            var pcs = db.Pcs.ToList();
+            var pcs = db.Pcs.OrderBy(x => x.Name).ToList();
             return pcs;
         }
 
@@ -96,7 +96,7 @@ namespace mino
         }
         public List<User> Get_Users()
         {
-            var users = db.Users.ToList();
+            var users = db.Users.OrderBy(x => x.Name).ToList();
             return users;
         }
         public void DeleteUser(User user)
@@ -131,7 +131,7 @@ namespace mino
 
         public List<TypesOfService> Get_Manipulations()
         {
-            var typesOfService = db.TypesOfServices.ToList();
+            var typesOfService = db.TypesOfServices.OrderBy(x => x.Name).ToList();
             return typesOfService;
         }
         #endregion
@@ -189,7 +189,7 @@ namespace mino
         #region TechModelsOfPrinter
         public List<TechModelsOfPrinter> Get_Printer_Models()
         {
-            var techModelsOfPrinter = db.TechModelsOfPrinters.ToList();
+            var techModelsOfPrinter = db.TechModelsOfPrinters.OrderBy(x => x.Name).ToList();
             return techModelsOfPrinter;
         }
 
@@ -226,7 +226,7 @@ namespace mino
         }
         public List<Place> Get_Places()
         {
-            var places = db.Places.ToList();
+            var places = db.Places.OrderBy(x => x.Name).ToList();
             return places;
         }
         public void DeletePlace(Place place)
@@ -252,7 +252,7 @@ namespace mino
 
         public List<TechPrinter> Get_Printers()
         {
-            var printers = db.TechPrinters.ToList();
+            var printers = db.TechPrinters.OrderBy(x => x.Comment).ToList();
             return printers;
         }
 
@@ -289,7 +289,7 @@ namespace mino
         }
         public List<TechModelsOfCartridge> Get_CartridgeModels()
         {
-            var cartridgeModels = db.TechModelsOfCartridges.ToList();
+            var cartridgeModels = db.TechModelsOfCartridges.OrderBy(x => x.Name).ToList();
             return cartridgeModels;
         }
 
