@@ -19,10 +19,17 @@ namespace mino
     /// Logique d'interaction pour Page_About.xaml
     /// </summary>
     public partial class Page_About : Page
+         
     {
-        public Page_About()
-        {
-            InitializeComponent();
+        public StatusBarUpdate StatusProperty;
+        public Page_About(StatusBarUpdate status)
+    {
+        StatusProperty = status;
+        StatusProperty.Message += Common.Status_Texts[0];
+        InitializeComponent();
+        TextBox.VerticalScrollBarVisibility = ScrollBarVisibility.Visible;
         }
+
+    
     }
 }

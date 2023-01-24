@@ -11,78 +11,22 @@
 
     <Grid x:Name="GridReports">
         <Grid.RowDefinitions>
-
-            <RowDefinition x:Name="RowDefinitionTop"  Height="210"/>
+            <RowDefinition x:Name="RowDefinitionTop" Height="0.1*"  />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel x:Name="StackPanelTop" Grid.Row="0" Orientation="Horizontal" >
-            <StackPanel HorizontalAlignment="Left" Orientation="Vertical" >
-                <ComboBox x:Name="ComboBoxReports" Width="400" Margin="10,10,10,10" 
-                  SelectionChanged="ComboBoxReports_SelectionChanged"  Text="Выберите отчёт"
-                  SelectedValuePath="Text"/>
-                <CheckBox x:Name="CheckBoxReports" IsChecked="False" Content="Произвольный запрос" Style="{StaticResource MaterialDesignDarkCheckBox}" Margin="10,10,10,10" Checked="CheckBoxReports_Checked" Unchecked="CheckBoxReports_Unchecked" />
-                <TextBox x:Name="TextBoxQuery" 
-                         IsEnabled="False"  
-                         AcceptsReturn="True" 
-                         Visibility="Visible"
-                         Margin="10,0,10,10"  Width="400" Height="60"
-                         TextWrapping="WrapWithOverflow" 
-                         Text=""                   
-                         Cursor="IBeam" 
-                         FontFamily="Courier New" />
-                <materialDesign:DialogHost x:Name="DialogHost" 
-                    CloseOnClickAway="True" 
-                    Height="40" Width="404">
-                    <materialDesign:DialogHost.DialogContentTemplate>
-                        <DataTemplate DataType="local:Query">
-                            <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Введите название запроса:" Margin="10,0,10,10" />
-                                <TextBox
-                                        Margin="10,0,10,10"
-                                        HorizontalAlignment="Stretch"
-                                        x:Name="TextBoxSaveQueryName" 
-                                        Text="{Binding Name}"
-                                        AcceptsReturn="False"/>
-                                <TextBlock Text="Введите текст запроса:" Margin="10,0,10,10" />
-                                <TextBox
-                                        Width="400" Height="200"
-                                        Margin="10,0,10,10"
-                                        HorizontalAlignment="Stretch"
-                                        x:Name="TextBoxSaveQueryText" 
-                                        Text="{Binding Text}"
-                                        AcceptsReturn="True"
-                                        FontFamily="Courier New"/>
-                                <StackPanel
-                                            Orientation="Horizontal"
-                                            HorizontalAlignment="Right" >
-                                    <Button
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    IsDefault="True"
-                                                    Margin="0 8 8 0"
-                                                    Content="Сохранить"
-                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                                    CommandParameter="True"/>
-                                    <Button
-                                                    Style="{StaticResource MaterialDesignFlatButton}"
-                                                    IsCancel="True"
-                                                    Margin="0 8 8 0"
-                                                    Content="Отмена"
-                                                    Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
-                                                    CommandParameter="False"/>
-                                </StackPanel>
+        <StackPanel Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Orientation="Horizontal">
 
-                            </StackPanel>
-                        </DataTemplate>
-                    </materialDesign:DialogHost.DialogContentTemplate>
-
-                    <Button x:Name="Button_Dia_Save_Query" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Content="Сохранить запрос..."
-               HorizontalAlignment="Left" VerticalAlignment="Center" Margin="50,0,0,0" Click="Button_Dia_Save_Query_Click" />
-                </materialDesign:DialogHost>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Left">
-                <Button x:Name="ShowReport" Content="Показать" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,10,9,10" Click="ShowReport_Click" Cursor="Hand"/>
-            </StackPanel>
-            <StackPanel HorizontalAlignment="Left"/>
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black"/>
+                    <GradientStop Color="#FF554BCF" Offset="1"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <TextBlock Text="Отчёт:" Margin="5,5,5,0" FontSize="11" FontWeight="Bold" Foreground="#FFEDEDED" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <ComboBox x:Name="CBOtherQuery" Margin="5,0,5,0"  Width="200"
+                                      SelectedValuePath="Id"
+                          SelectionChanged="CBOtherQuery_SelectionChanged" BorderThickness="2,2,2,2" 
+                          FontWeight="Bold" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </StackPanel>
         <DataGrid x:Name="DataGridReport" IsReadOnly="True"  Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}"/>
 

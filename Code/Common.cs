@@ -12,7 +12,10 @@ namespace mino
             
             // константы с номерами нужных запросов, хранящихся в БД
             public static readonly int Number_of_Query_Journal                          = 1;
-            public static readonly int Number_of_Query_Printers                         = 7;
+        public static readonly int Number_of_Query_Users_Activity = 2;
+        public static readonly int Number_of_Query_Popular_Services = 5;
+        public static readonly int Number_of_Query_Scanners = 6;
+        public static readonly int Number_of_Query_Printers                         = 7;
             public static readonly int Number_of_Query_Aventures_of_Printer             = 8;
             public static readonly int Number_of_Query_Where_is_Printer                 = 9;
             public static readonly int Number_of_Query_Where_Are_Printers_Now           = 10;
@@ -55,6 +58,15 @@ namespace mino
                 Number_of_Query_Aventures_of_Printer,                   // WHERE PCs_Printers.printer = @PrinterId
                 Number_of_Query_Where_is_Printer                       // FROM PCs_Printers WHERE printer = @PrinterId
               };
+
+        public static readonly List<long> List_Different_Reports = new List<long>() {
+                Number_of_Query_Users_Activity,
+                Number_of_Query_Popular_Services,
+                Number_of_Query_Where_Are_Printers_Now,
+                Number_of_Query_Scanners,
+                Number_of_Query_Cartridges_Assortiment
+              };
+
 
 
         public static readonly string Del_Confirmation = "В самом деле удалить\n";

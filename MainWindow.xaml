@@ -6,21 +6,22 @@
         xmlns:local="clr-namespace:mino"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" x:Class="mino.MainWindow"
         mc:Ignorable="d"
-        Title="Mino" Height="800" Width="1150" MinWidth="1150" MinHeight="800" WindowStartupLocation="CenterScreen"
+        Title="Mino v. 0.9" Height="800" Width="1150" MinWidth="1150" MinHeight="800" WindowStartupLocation="CenterScreen"
      Closing="DataWindow_Closing">
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"></ColumnDefinition>
+            <ColumnDefinition Width="42"></ColumnDefinition>
+            <ColumnDefinition Width="208"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="GridMenu" Grid.Row="0" Grid.Column="0" Background="#FF554BCF" Width="250" HorizontalAlignment="Left">
+        <Grid x:Name="GridMenu" Grid.Row="0" Grid.Column="0" Background="#FF554BCF" Width="250" HorizontalAlignment="Left" Grid.ColumnSpan="2">
             <ListView x:Name="ListViewMenu"   HorizontalAlignment="Left" VerticalAlignment="Stretch" Width="250">
-                <ListViewItem x:Name="ItemReports" Height="45" Width="200" Selected="ItemReports_Selected" IsEnabled="False" >
+                <ListViewItem x:Name="ItemReports" Height="45" Width="200" Selected="ItemReports_Selected" IsEnabled="True" >
                     <StackPanel x:Name="StackPanelReports" Orientation="Horizontal" Width="187" Height="31" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                         <materialDesign:PackIcon  Kind="ChartBox" HorizontalAlignment="Left" VerticalAlignment="Center" Width="32" Height="32"/>
                         <TextBlock Text="Отчёты" VerticalAlignment="Center" HorizontalAlignment="Stretch" FontSize="13"/>
@@ -93,8 +94,8 @@
                 </ListView.View>
             </ListView>
         </Grid>
-        <Frame x:Name="FrameMain" Grid.Column="1" Grid.RowSpan="2" Content="" NavigationUIVisibility="Hidden"/>
-        <StatusBar x:Name="StatusBar" Grid.Row="1" Grid.Column="0" Background="#FF413A9C" >
+        <Frame x:Name="FrameMain" Grid.Column="2" Grid.RowSpan="2" Content="" NavigationUIVisibility="Hidden"/>
+        <StatusBar x:Name="StatusBar" Grid.Column="0" Background="#FF413A9C" Grid.ColumnSpan="2" Margin="0,584,0,0" Grid.RowSpan="2" >
             <TextBox x:Name="TextBoxOut" 
                          IsEnabled="True"   
                          AcceptsReturn="True" 

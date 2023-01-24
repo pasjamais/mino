@@ -95,13 +95,13 @@ namespace mino
         private void ItemAbout_Selected(object sender, RoutedEventArgs e)
         {
             StatusProperty.Message += Common.Status_Texts[12];
-            FrameMain.Navigate(new Page_About());
+            FrameMain.Navigate(new Page_About(StatusProperty));
         }
 
         private void ItemReports_Selected(object sender, RoutedEventArgs e)
         {
             StatusProperty.Message += Common.Status_Texts[9];
-            FrameMain.Navigate(new Page_Reports());
+            FrameMain.Navigate(new Page_Reports(StatusProperty));
         }
         private void ItemCartridges_Selected(object sender, RoutedEventArgs e)
         {
