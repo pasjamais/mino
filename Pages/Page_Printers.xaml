@@ -37,29 +37,37 @@
                     <materialDesign:DialogHost.DialogContent>
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Vertical">
-                                <TextBlock Text="Выберите принтер:" Margin="10,10,10,10" />
-                                <ComboBox x:Name="ComboBoxMouvementPrinter" Width="200" Margin="10,10,10,10" 
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Выберите принтер:" Margin="10,10,10,10" />
+                                    <ComboBox x:Name="ComboBoxMouvementPrinter" Width="200" Margin="10,10,10,10" 
                                       SelectedValuePath="Id"/>
-                                
+                                </StackPanel>
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Text="Выберите тип движения:" Margin="10,10,10,10" />
                                     <ComboBox x:Name="ComboBoxMouvementType" Width="150" Margin="10,10,10,10" 
                                               SelectedValuePath="Value" />
                                 </StackPanel>
-                                
-                                <TextBlock Text="Выберите ПК:" Margin="10,10,10,10" />
-                                <ComboBox x:Name="ComboBoxMouvementPC" Width="200" Margin="10,10,10,10" 
-                                      SelectedValuePath="Id"/>
-                                
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="Выберите ПК:" Margin="10,10,10,10" />
+                                    <CheckBox x:Name="ChB_PC" IsChecked="False"  IsEnabled="True"
+                                          Checked="ChB_PC_Status"
+                                          Unchecked="ChB_PC_Status"
+                                          Indeterminate="ChB_PC_Status"></CheckBox>
+
+                                    <ComboBox x:Name="ComboBoxMouvementPC" Width="200" Margin="10,10,10,10" IsEnabled="False"
+                                      SelectedValuePath="Id"/> 
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Пояснение:" Margin="10,10,10,10" />
                                 <TextBox
-                                        Width="50"
+                                        Width="200"
                                         Margin="10,10,10,10"
                                         HorizontalAlignment="Stretch"
                                         x:Name="TextBoxMouvementComment" 
                                         Text="1"
                                         AcceptsReturn="False"/>
-                            </StackPanel>
+                                </StackPanel>
+                        </StackPanel>
                            
                             
                             <StackPanel
@@ -67,7 +75,7 @@
                                             HorizontalAlignment="Right" >
                                 <Button                 x:Name="Button_Save_Record"
                                                     Style="{StaticResource MaterialDesignFlatButton}"
-                                                    IsDefault="True"
+                                                    IsDefault="True" Click="Button_Save_Record_Click"
                                                     Margin="0 8 8 0"
                                                     Content="Сохранить запись"
                                                     Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"
@@ -90,7 +98,7 @@
                     <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" 
                             Content="Переместить принтер..." IsEnabled="False"
                         Name="Button_Dia_Add_Mouvement" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                       Margin="5,2,5,0" 
+                       Margin="5,2,5,0"  Click="Button_Dia_Add_Mouvement_Click"
                         BorderBrush="#FF4042CE" Background="#FF9E7335"/>
                 </materialDesign:DialogHost>
             </StackPanel>

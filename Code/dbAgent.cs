@@ -267,6 +267,13 @@ namespace mino
         }
         #endregion
 
+        #region pcprinter
+        public void Add_pcprinter(PcsPrinter pcprinter)
+        {
+            db.PcsPrinters.Add(pcprinter);
+            db.SaveChanges();
+        }
+        #endregion
 
         #region ModelOfCartridge
         public void AddCartridgeModel(TechModelsOfCartridge cartridgeModel)

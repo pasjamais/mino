@@ -120,6 +120,12 @@ namespace mino
             return id;
         }
 
+        private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
+        {
+            if (e.PropertyType == typeof(System.DateTime))
+                (e.Column as DataGridTextColumn).Binding.StringFormat = Common.AlmostRussianStringFormat;
+        }
+
         #endregion
 
         #region Mouvement
@@ -529,11 +535,7 @@ namespace mino
 
         #endregion //Place
 
-        private void OnAutoGeneratingColumn(object sender, DataGridAutoGeneratingColumnEventArgs e)
-        {
-            if (e.PropertyType == typeof(System.DateTime))
-                (e.Column as DataGridTextColumn).Binding.StringFormat = Common.AlmostRussianStringFormat;
-        }
+
 
     }
 }

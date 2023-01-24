@@ -133,6 +133,9 @@ namespace mino
             RefillGrid(Common.Number_of_Query_List_Printers_Mouvement);
         }
 
+
+
+
         #endregion
 
         #region Models
@@ -390,7 +393,44 @@ namespace mino
             }
         }
 
-#endregion
+        #endregion
+
+        private void Button_Dia_Add_Mouvement_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBoxMouvementPC.ItemsSource = MainWindow.db_agent.GetPCs();
+            ComboBoxMouvementPrinter.ItemsSource = MainWindow.db_agent.Get_Printers();
+            TextBoxMouvementComment.Text = "";
+            ComboBoxMouvementType.ItemsSource = Common.mouvement_cartridge_type;
+            ComboBoxMouvementType.DisplayMemberPath = "Key";
+            ComboBoxMouvementPC.DisplayMemberPath = "Name";
+            ComboBoxMouvementPrinter.DisplayMemberPath = "Comment";
+            ComboBoxMouvementType.SelectedIndex = 0;
+            ComboBoxMouvementPC.SelectedIndex = 0;
+            ComboBoxMouvementPrinter.SelectedIndex = 0;
+
+        }
+
+        private void Button_Save_Record_Click(object sender, RoutedEventArgs e)
+        {
+            PcsPrinter pcprinter = new PcsPrinter();
+            pcprinter.Date = DateTime.Now;
+            pcprinter.Comment = TextBoxMouvementComment.Text;
+            pcprinter.Quantity = Convert.ToInt64(ComboBoxMouvementType.SelectedValue);
+            pcprinter.Printer = (System.Int64)ComboBoxMouvementPrinter.SelectedValue;
+            if (ChB_PC.IsChecked.HasValue && ChB_PC.IsChecked.Value)
+            {
+                pcprinter.Pc = (System.Int64)ComboBoxMouvementPC.SelectedValue;
+            }
+            else pcprinter.Pc = null;
+            MainWindow.db_agent.Add_pcprinter(pcprinter);
+            RefillGrid(Common.Number_of_Query_List_Printers_Mouvement);
+        }
+
+    
+        private void ChB_PC_Status(object sender, RoutedEventArgs e)
+        {
+            ComboBoxMouvementPC.IsEnabled = ChB_PC.IsChecked.HasValue && ChB_PC.IsChecked.Value;
+        }
 
     }
 }
